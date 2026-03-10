@@ -5,42 +5,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cryptocurrency Readiness in Bhutan</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
             background-color: #f5f7fa;
         }
-        h1 {
-            color: #1F4E79;
+        .header {
+            background-color: #1F4E79;
+            padding: 30px 20px;
             text-align: center;
+            color: white;
         }
-        p {
-            text-align: center;
-            color: #666666;
+        .header h1 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 8px;
         }
-        .dashboard {
+        .header p {
+            font-size: 14px;
+            color: #9DC3E6;
+            margin-bottom: 4px;
+        }
+        .tagline {
+            font-size: 16px;
+            color: #F4A261;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+        .findings-bar {
+            background-color: #2E75B6;
+            padding: 15px 20px;
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .finding-item {
+            text-align: center;
+            color: white;
+        }
+        .finding-item .number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #F4A261;
+        }
+        .finding-item .label {
+            font-size: 11px;
+            color: #9DC3E6;
+        }
+        .dashboard-section {
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .dashboard-section h2 {
+            font-size: 20px;
+            color: #1F4E79;
+            margin-bottom: 20px;
+        }
+        .footer {
+            background-color: #1F4E79;
+            color: #9DC3E6;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+        .footer p {
+            margin-bottom: 4px;
         }
     </style>
 </head>
 <body>
-    <h1>Cryptocurrency Readiness in Bhutan</h1>
-    <p>By Kinzang Choden — BDS Internship 2026 | Bhutan Data Scientists</p>
-    <p>DrukShift — Shift Forward, Bhutan 🇧🇹</p>
 
-    <div class="dashboard">
-        <iframe
-            src="https://public.tableau.com/shared/7QSM5ZBYJ?:display_count=n&:origin=viz_share_link&:embed=yes"
-            width="1200"
-            height="900"
-            frameborder="0">
-        </iframe>
+    <!-- Header -->
+    <div class="header">
+        <h1>🇧🇹 Cryptocurrency Readiness in Bhutan</h1>
+        <p>By Kinzang Choden — 3rd Year Business Intelligence Student</p>
+        <p>Intern at Bhutan Data Scientists Pvt. Ltd | BDS Internship 2026</p>
+        <div class="tagline">DrukShift — Shift Forward, Bhutan 🇧🇹</div>
     </div>
+
+    <!-- Key Findings Bar -->
+    <div class="findings-bar">
+        <div class="finding-item">
+            <div class="number">113</div>
+            <div class="label">Survey Respondents</div>
+        </div>
+        <div class="finding-item">
+            <div class="number">80%</div>
+            <div class="label">Overall Readiness</div>
+        </div>
+        <div class="finding-item">
+            <div class="number">96%</div>
+            <div class="label">Crypto Awareness</div>
+        </div>
+        <div class="finding-item">
+            <div class="number">12.75</div>
+            <div class="label">Avg Score out of 16</div>
+        </div>
+        <div class="finding-item">
+            <div class="number">#1</div>
+            <div class="label">Barrier: Poor Internet</div>
+        </div>
+    </div>
+
+    <!-- Tableau Dashboard -->
+    <div class="dashboard-section">
+        <h2>📊 Interactive Dashboard — Explore the Data</h2>
+        <div id="vizContainer"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>🇧🇹 DrukShift — Shift Forward, Bhutan</p>
+        <p>Druk = The Land of the Thunder Dragon | Shift = Shifting towards the future of digital finance</p>
+        <p>Kinzang Choden | BDS Internship 2026 | Bhutan Data Scientists Pvt. Ltd</p>
+    </div>
+
+    <!-- Tableau Embed Script -->
+    <script type="module">
+        import {
+            TableauEventType,
+        } from "https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js";
+
+        const viz = document.createElement("tableau-viz");
+        viz.setAttribute("src", "https://public.tableau.com/shared/7QSM5ZBYJ");
+        viz.setAttribute("width", "1200");
+        viz.setAttribute("height", "900");
+        viz.setAttribute("hide-tabs", "false");
+        viz.setAttribute("toolbar", "bottom");
+        document.getElementById("vizContainer").appendChild(viz);
+    </script>
 
 </body>
 </html>
-```
-

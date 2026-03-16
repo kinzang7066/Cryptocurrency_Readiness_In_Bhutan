@@ -4,263 +4,1092 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cryptocurrency Readiness in Bhutan | DrukShift</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --navy: #0d2137;
-            --blue: #1a4a7a;
-            --mid-blue: #2E75B6;
-            --accent: #f4a261;
-            --gold: #e9c46a;
-            --light: #f0f4f8;
-            --white: #ffffff;
-            --text-muted: #8faec8;
+            --navy:    #08192d;
+            --deep:    #0f2a45;
+            --blue:    #1a4a7a;
+            --mid:     #2a6aad;
+            --accent:  #f4a261;
+            --gold:    #e9c46a;
+            --teal:    #2a9d8f;
+            --red:     #e63946;
+            --light:   #eef2f7;
+            --white:   #ffffff;
+            --muted:   #7a9bb5;
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'DM Sans', sans-serif;
-            background-color: var(--light);
+            font-family: 'Outfit', sans-serif;
+            background: var(--light);
             color: var(--navy);
             overflow-x: hidden;
         }
+
+        /* ═══════════════════════════
+           NAV
+        ═══════════════════════════ */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 48px;
+            background: rgba(8,25,45,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--white); }
+
+        /* ═══════════════════════════
+           HERO
+        ═══════════════════════════ */
         .hero {
-            background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 60%, #1e5f9e 100%);
-            padding: 70px 40px 60px;
-            text-align: center;
+            min-height: 100vh;
+            background:
+                radial-gradient(ellipse at 70% 50%, rgba(42,106,173,0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(244,162,97,0.1) 0%, transparent 50%),
+                linear-gradient(160deg, var(--navy) 0%, var(--deep) 50%, #0a1f38 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 48px 80px;
             position: relative;
             overflow: hidden;
         }
+
+        /* Decorative grid lines */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Glowing orb */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 20%; right: 10%;
+            width: 400px; height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(42,106,173,0.2) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .hero-content {
+            max-width: 720px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
         .hero-badge {
-            display: inline-block;
-            background: rgba(244,162,97,0.15);
-            border: 1px solid rgba(244,162,97,0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(244,162,97,0.12);
+            border: 1px solid rgba(244,162,97,0.35);
             color: var(--accent);
             font-size: 11px;
             font-weight: 600;
-            letter-spacing: 2.5px;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            padding: 6px 18px;
+            padding: 8px 20px;
             border-radius: 50px;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
+            animation: fadeDown 0.6s ease both;
         }
+
         .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(28px, 5vw, 52px);
-            font-weight: 900;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(40px, 7vw, 72px);
+            font-weight: 700;
             color: var(--white);
-            line-height: 1.15;
-            margin-bottom: 20px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            animation: fadeUp 0.6s 0.1s ease both;
         }
-        .hero h1 span { color: var(--accent); }
-        .hero-sub {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.8;
-            margin-bottom: 4px;
-        }
-        .tagline {
-            display: inline-block;
-            margin-top: 20px;
-            font-size: 13px;
-            font-weight: 600;
+
+        .hero h1 em {
+            font-style: italic;
             color: var(--accent);
-            letter-spacing: 1px;
-            border-top: 1px solid rgba(244,162,97,0.3);
-            padding-top: 16px;
         }
-        .stats-bar {
+
+        .hero-desc {
+            font-size: 16px;
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 520px;
+            margin: 0 auto 40px;
+            animation: fadeUp 0.6s 0.2s ease both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeUp 0.6s 0.3s ease both;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent);
+            color: var(--navy);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 14px 32px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.25s;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-primary:hover {
+            background: #e8935a;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(244,162,97,0.35);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: var(--white);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 14px 32px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.25s;
+        }
+
+        .btn-secondary:hover {
+            border-color: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.06);
+            transform: translateY(-2px);
+        }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.3);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeUp 1s 0.8s ease both;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* ═══════════════════════════
+           STATS
+        ═══════════════════════════ */
+        .stats-section {
             background: var(--white);
-            box-shadow: 0 4px 30px rgba(13,33,55,0.1);
+            box-shadow: 0 2px 40px rgba(8,25,45,0.08);
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+            border-bottom: 1px solid #e4eaf2;
         }
+
         .stat-item {
-            padding: 28px 48px;
+            padding: 32px 56px;
             text-align: center;
-            border-right: 1px solid #e8eef4;
+            border-right: 1px solid #edf2f7;
+            position: relative;
             transition: background 0.2s;
         }
+
         .stat-item:last-child { border-right: none; }
-        .stat-item:hover { background: #f8fafc; }
-        .stat-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
+        .stat-item:hover { background: #fafcff; }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 40px; height: 2px;
+            background: var(--accent);
+            transition: transform 0.3s;
+        }
+
+        .stat-item:hover::after { transform: translateX(-50%) scaleX(1); }
+
+        .stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
             font-weight: 700;
             color: var(--blue);
             line-height: 1;
             margin-bottom: 6px;
         }
-        .stat-label {
-            font-size: 11px;
-            font-weight: 500;
-            color: #8faec8;
-            letter-spacing: 1.5px;
+
+        .stat-lbl {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--muted);
+            letter-spacing: 2px;
             text-transform: uppercase;
         }
-        .section-label {
+
+        /* ═══════════════════════════
+           DASHBOARD SECTION
+        ═══════════════════════════ */
+        .dashboard-section {
+            padding: 100px 48px;
+            background: linear-gradient(160deg, var(--deep) 0%, var(--navy) 100%);
+            position: relative;
+            overflow: hidden;
             text-align: center;
-            padding: 50px 20px 20px;
         }
-        .section-label h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 26px;
+
+        .dashboard-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .dashboard-inner {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .dashboard-section h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-section p {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 48px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Preview card */
+        .dashboard-preview {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .preview-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 20px 16px;
+            border: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .preview-item .p-icon { font-size: 20px; margin-bottom: 8px; }
+        .preview-item .p-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-dashboard {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--accent), #e8935a);
+            color: var(--navy);
+            font-size: 15px;
+            font-weight: 700;
+            padding: 18px 48px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            letter-spacing: 0.3px;
+            box-shadow: 0 8px 30px rgba(244,162,97,0.3);
+        }
+
+        .btn-dashboard:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(244,162,97,0.45);
+        }
+
+        .btn-dashboard .arrow {
+            width: 20px; height: 20px;
+            background: rgba(8,25,45,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+
+        .btn-dashboard:hover .arrow { transform: translateX(3px); }
+
+        .btn-note {
+            display: block;
+            margin-top: 16px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* GNH SECTION */
+        .gnh-section {
+            padding: 100px 48px;
+            background: linear-gradient(160deg, #0a1f38 0%, #0d2137 50%, #0f2a45 100%);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .gnh-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(233,196,106,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(233,196,106,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .gnh-inner {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .gnh-section h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .gnh-section h2 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .gnh-section p {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gnh-domains {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 48px;
+        }
+
+        .gnh-pill {
+            background: rgba(233,196,106,0.1);
+            border: 1px solid rgba(233,196,106,0.3);
+            color: var(--gold);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 50px;
+            transition: all 0.2s;
+        }
+
+        .gnh-pill:hover {
+            background: rgba(233,196,106,0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-gnh {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--gold), #d4a017);
+            color: var(--navy);
+            font-size: 15px;
+            font-weight: 700;
+            padding: 18px 48px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 0.3px;
+            box-shadow: 0 8px 30px rgba(233,196,106,0.3);
+        }
+
+        .btn-gnh:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(233,196,106,0.45);
+        }
+
+        /* GNH MODAL */
+        .gnh-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(8,25,45,0.95);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gnh-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* FINDINGS SECTION */
+        .findings-section {
+            padding: 100px 48px;
+            background: var(--light);
+        }
+
+        .findings-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(28px, 4vw, 44px);
             font-weight: 700;
             color: var(--navy);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
-        .section-label p {
-            font-size: 13px;
-            color: #7a95ab;
-            max-width: 500px;
-            margin: 0 auto;
+
+        .section-header p {
+            font-size: 14px;
+            color: var(--muted);
         }
-        .divider {
-            width: 50px;
+
+        .accent-line {
+            width: 48px;
             height: 3px;
             background: var(--accent);
-            margin: 14px auto 0;
+            margin: 16px auto 0;
             border-radius: 2px;
         }
-        .findings-section {
-            padding: 10px 30px 60px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+
         .findings-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
         }
+
         .finding-card {
             background: var(--white);
-            border-radius: 12px;
-            padding: 28px 24px;
-            box-shadow: 0 2px 20px rgba(13,33,55,0.07);
-            border-left: 4px solid var(--mid-blue);
-            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 14px;
+            padding: 36px 32px;
+            box-shadow: 0 2px 24px rgba(8,25,45,0.06);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.25s, box-shadow 0.25s;
         }
+
+        .finding-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+        }
+
+        .finding-card:nth-child(1)::before { background: var(--mid); }
+        .finding-card:nth-child(2)::before { background: var(--accent); }
+        .finding-card:nth-child(3)::before { background: var(--teal); }
+        .finding-card:nth-child(4)::before { background: var(--gold); }
+
         .finding-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(13,33,55,0.12);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(8,25,45,0.12);
         }
-        .finding-card:nth-child(2) { border-left-color: var(--accent); }
-        .finding-card:nth-child(3) { border-left-color: #2a9d8f; }
-        .finding-card:nth-child(4) { border-left-color: var(--gold); }
-        .finding-icon { font-size: 24px; margin-bottom: 12px; }
+
+        .finding-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #e8eef4;
+            position: absolute;
+            top: 20px; right: 24px;
+            line-height: 1;
+        }
+
+        .finding-icon { font-size: 28px; margin-bottom: 16px; }
+
         .finding-card h3 {
-            font-size: 13px;
+            font-size: 16px;
             font-weight: 600;
             color: var(--navy);
-            margin-bottom: 6px;
+            margin-bottom: 10px;
+            line-height: 1.4;
         }
+
         .finding-card p {
-            font-size: 12px;
+            font-size: 13px;
             color: #7a95ab;
-            line-height: 1.6;
+            line-height: 1.7;
         }
-        .footer {
+
+        /* ═══════════════════════════
+           FOOTER
+        ═══════════════════════════ */
+        footer {
             background: var(--navy);
-            color: var(--text-muted);
+            padding: 60px 48px 40px;
             text-align: center;
-            padding: 36px 20px;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .footer-logo span { color: var(--accent); }
+
+        .footer-tagline {
             font-size: 12px;
+            color: var(--muted);
+            letter-spacing: 1px;
+            margin-bottom: 32px;
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            margin: 0 auto 32px;
+        }
+
+        .footer-info {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
             line-height: 2;
         }
-        .footer strong {
-            color: var(--accent);
-            font-size: 15px;
-            font-family: 'Playfair Display', serif;
-            display: block;
-            margin-bottom: 6px;
+
+        /* ═══════════════════════════
+           MODAL
+        ═══════════════════════════ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(8,25,45,0.95);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 1500px;
+            height: 95vh;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            background: linear-gradient(90deg, var(--navy), var(--blue));
+            padding: 18px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .modal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot { width: 13px; height: 13px; border-radius: 50%; }
+        .dot-r { background: #ff5f57; }
+        .dot-y { background: #febc2e; }
+        .dot-g { background: #28c840; }
+
+        .modal-title {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .modal-close {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: rgba(255,255,255,0.8);
+            font-size: 16px;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.25);
+            color: var(--white);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow: auto;
+            background: #f0f4f8;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .modal-body tableau-viz {
+            width: 100% !important;
+            min-height: 850px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 30px rgba(8,25,45,0.1);
+        }
+
+        /* ═══════════════════════════
+           ANIMATIONS
+        ═══════════════════════════ */
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(24px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .hero { animation: fadeUp 0.5s ease both; }
-        .stats-bar { animation: fadeUp 0.5s 0.2s ease both; }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stat-item { animation: fadeUp 0.5s ease both; }
+        .stat-item:nth-child(1) { animation-delay: 0.05s; }
+        .stat-item:nth-child(2) { animation-delay: 0.1s; }
+        .stat-item:nth-child(3) { animation-delay: 0.15s; }
+        .stat-item:nth-child(4) { animation-delay: 0.2s; }
+        .stat-item:nth-child(5) { animation-delay: 0.25s; }
+
         .finding-card { animation: fadeUp 0.5s ease both; }
-        .finding-card:nth-child(1) { animation-delay: 0.1s; }
-        .finding-card:nth-child(2) { animation-delay: 0.2s; }
-        .finding-card:nth-child(3) { animation-delay: 0.3s; }
-        .finding-card:nth-child(4) { animation-delay: 0.4s; }
+        .finding-card:nth-child(1) { animation-delay: 0.05s; }
+        .finding-card:nth-child(2) { animation-delay: 0.1s; }
+        .finding-card:nth-child(3) { animation-delay: 0.15s; }
+        .finding-card:nth-child(4) { animation-delay: 0.2s; }
     </style>
 </head>
 <body>
 
-    <!-- HERO -->
-    <div class="hero">
-        <div class="hero-badge">🇧🇹 BDS Internship 2026</div>
-        <h1>Cryptocurrency <span>Readiness</span><br>in Bhutan</h1>
-        <p class="hero-sub">By Kinzang Choden — 3rd Year Business Intelligence Student</p>
-        <p class="hero-sub">Intern at Bhutan Data Scientists Pvt. Ltd</p>
-        <div class="tagline">DrukShift — Shift Forward, Bhutan 🇧🇹</div>
-    </div>
+    <!-- NAV -->
+    <nav>
+        <div class="nav-logo">Druk<span>Shift</span> 🇧🇹</div>
+        <ul class="nav-links">
+            <li><a href="#stats">Overview</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#findings">Findings</a></li>
+        </ul>
+    </nav>
 
-    <!-- STATS BAR -->
-    <div class="stats-bar">
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🇧🇹 BDS Internship 2026</div>
+            <h1>Cryptocurrency<br><em>Readiness</em><br>in Bhutan</h1>
+            <p class="hero-desc">A data-driven survey project examining whether Bhutanese adults are prepared to adopt cryptocurrency — aligned with Bhutan's GNH values.</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="openModal()">
+                    📊 Explore Dashboard
+                </button>
+                <a href="#findings" class="btn-secondary">
+                    🔑 View Key Findings
+                </a>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <div class="scroll-line"></div>
+            Scroll
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-section" id="stats">
         <div class="stat-item">
-            <div class="stat-number">113</div>
-            <div class="stat-label">Respondents</div>
+            <div class="stat-num">113</div>
+            <div class="stat-lbl">Respondents</div>
         </div>
         <div class="stat-item">
-            <div class="stat-number">80%</div>
-            <div class="stat-label">Overall Readiness</div>
+            <div class="stat-num">80%</div>
+            <div class="stat-lbl">Overall Readiness</div>
         </div>
         <div class="stat-item">
-            <div class="stat-number">96%</div>
-            <div class="stat-label">Crypto Awareness</div>
+            <div class="stat-num">96%</div>
+            <div class="stat-lbl">Crypto Awareness</div>
         </div>
         <div class="stat-item">
-            <div class="stat-number">12.75</div>
-            <div class="stat-label">Avg Score / 16</div>
+            <div class="stat-num">12.75</div>
+            <div class="stat-lbl">Avg Score / 16</div>
         </div>
         <div class="stat-item">
-            <div class="stat-number">#1</div>
-            <div class="stat-label">Barrier: Internet</div>
+            <div class="stat-num">#1</div>
+            <div class="stat-lbl">Barrier: Internet</div>
         </div>
-    </div>
+    </section>
+
+    <!-- DASHBOARD CTA -->
+    <section class="dashboard-section" id="dashboard">
+        <div class="dashboard-inner">
+            <span class="section-tag">Interactive Data</span>
+            <h2>Explore the Full<br>Dashboard</h2>
+            <p>Click below to open the interactive Tableau dashboard — filter by age group, area, and more to discover insights from 113 Bhutanese survey responses.</p>
+
+            <!-- Preview tiles -->
+            <div class="dashboard-preview">
+                <div class="preview-item">
+                    <div class="p-icon">🗺️</div>
+                    <div class="p-title">Area Distribution</div>
+                </div>
+                <div class="preview-item">
+                    <div class="p-icon">📊</div>
+                    <div class="p-title">Readiness Score</div>
+                </div>
+                <div class="preview-item">
+                    <div class="p-icon">🔥</div>
+                    <div class="p-title">Barriers Analysis</div>
+                </div>
+                <div class="preview-item">
+                    <div class="p-icon">🧩</div>
+                    <div class="p-title">Crypto Awareness</div>
+                </div>
+                <div class="preview-item">
+                    <div class="p-icon">💡</div>
+                    <div class="p-title">Support Needed</div>
+                </div>
+                <div class="preview-item">
+                    <div class="p-icon">🏆</div>
+                    <div class="p-title">Adoption Willingness</div>
+                </div>
+            </div>
+
+            <button class="btn-dashboard" onclick="openModal()">
+                Open Interactive Dashboard
+                <span class="arrow">→</span>
+            </button>
+            <span class="btn-note">Opens in a full-screen overlay — no download required</span>
+        </div>
+    </section>
+
+    <!-- GNH SECTION -->
+    <section class="gnh-section" id="gnh">
+        <div class="gnh-inner">
+            <span class="section-tag" style="color:var(--gold)">🇧🇹 GNH Alignment</span>
+            <h2>Crypto Readiness as<br>a <em>GNH Story</em></h2>
+            <p>Bhutan measures progress through happiness — not just money. This story maps cryptocurrency readiness across 6 GNH domains — Education, Living Standards, Psychological Wellbeing, Governance, Community Vitality and Time Use.</p>
+
+            <!-- GNH Domain Pills -->
+            <div class="gnh-domains">
+                <div class="gnh-pill">🎓 Education</div>
+                <div class="gnh-pill">🏠 Living Standards</div>
+                <div class="gnh-pill">🧠 Psychological Wellbeing</div>
+                <div class="gnh-pill">🏛️ Governance</div>
+                <div class="gnh-pill">🤝 Community Vitality</div>
+                <div class="gnh-pill">⏰ Time Use</div>
+            </div>
+
+            <button class="btn-gnh" onclick="openGNHModal()">
+                🇧🇹 View GNH Story
+                <span class="arrow">→</span>
+            </button>
+            <span class="btn-note" style="color:rgba(255,255,255,0.3)">Opens interactive GNH story — no download required</span>
+        </div>
+    </section>
 
     <!-- KEY FINDINGS -->
-    <div class="findings-section">
-        <div class="section-label" style="padding-top:40px">
-            <h2>🔑 Key Findings</h2>
-            <p>Four critical insights from 113 survey responses</p>
-            <div class="divider"></div>
+    <section class="findings-section" id="findings">
+        <div class="findings-inner">
+            <div class="section-header">
+                <span class="section-tag" style="color:var(--mid)">Research Results</span>
+                <h2>Key Findings</h2>
+                <p>Four critical insights from 113 survey responses</p>
+                <div class="accent-line"></div>
+            </div>
+            <div class="findings-grid">
+                <div class="finding-card">
+                    <span class="finding-num">01</span>
+                    <div class="finding-icon">🏆</div>
+                    <h3>Bhutan is 80% Ready</h3>
+                    <p>Average readiness score of 12.75 out of 16 — Bhutan shows strong foundational readiness for cryptocurrency adoption aligned with GNH values.</p>
+                </div>
+                <div class="finding-card">
+                    <span class="finding-num">02</span>
+                    <div class="finding-icon">👂</div>
+                    <h3>High Awareness, Low Understanding</h3>
+                    <p>96% have heard of cryptocurrency but most only have basic understanding — a critical knowledge gap exists between awareness and true readiness.</p>
+                </div>
+                <div class="finding-card">
+                    <span class="finding-num">03</span>
+                    <div class="finding-icon">🌐</div>
+                    <h3>Internet is Barrier #1</h3>
+                    <p>Poor internet connection is the single biggest barrier to adoption — especially critical for rural communities who remain underserved.</p>
+                </div>
+                <div class="finding-card">
+                    <span class="finding-num">04</span>
+                    <div class="finding-icon">📅</div>
+                    <h3>Age Predicts Readiness</h3>
+                    <p>Age is a stronger predictor of readiness than location — younger groups show consistently higher scores regardless of where they live.</p>
+                </div>
+            </div>
         </div>
-        <div class="findings-grid">
-            <div class="finding-card">
-                <div class="finding-icon">🏆</div>
-                <h3>80% Ready</h3>
-                <p>Average readiness score of 12.75 out of 16 — Bhutan shows strong foundational readiness for cryptocurrency.</p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">Druk<span>Shift</span> 🇧🇹</div>
+        <div class="footer-tagline">Shift Forward, Bhutan</div>
+        <div class="footer-divider"></div>
+        <div class="footer-info">
+            Druk = The Land of the Thunder Dragon &nbsp;·&nbsp; Shift = Shifting towards the future of digital finance
+            <br>
+            Kinzang Choden &nbsp;·&nbsp; BDS Internship 2026 &nbsp;·&nbsp; Bhutan Data Scientists Pvt. Ltd
+        </div>
+    </footer>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <div class="modal-dots">
+                    <div class="dot dot-r"></div>
+                    <div class="dot dot-y"></div>
+                    <div class="dot dot-g"></div>
+                </div>
+                <span class="modal-title">Cryptocurrency Readiness in Bhutan — Tableau Public</span>
+                <button class="modal-close" onclick="closeModal()">✕</button>
             </div>
-            <div class="finding-card">
-                <div class="finding-icon">👂</div>
-                <h3>High Awareness, Low Understanding</h3>
-                <p>96% have heard of crypto but most only have basic understanding — a critical knowledge gap exists.</p>
-            </div>
-            <div class="finding-card">
-                <div class="finding-icon">🌐</div>
-                <h3>Internet is Barrier #1</h3>
-                <p>Poor internet connection is the single biggest barrier — especially critical for rural communities.</p>
-            </div>
-            <div class="finding-card">
-                <div class="finding-icon">📅</div>
-                <h3>Age Over Location</h3>
-                <p>Age predicts readiness more strongly than location — younger groups show consistently higher scores.</p>
-            </div>
+            <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <div class="footer">
-        <strong>DrukShift 🇧🇹</strong>
-        Druk = The Land of the Thunder Dragon &nbsp;|&nbsp; Shift = Shifting towards the future of digital finance
-        <br>
-        Kinzang Choden &nbsp;|&nbsp; BDS Internship 2026 &nbsp;|&nbsp; Bhutan Data Scientists Pvt. Ltd
+    <!-- GNH MODAL -->
+    <div class="gnh-modal-overlay" id="gnhModalOverlay" onclick="handleGNHOverlayClick(event)">
+        <div class="modal" id="gnhModal">
+            <div class="modal-header">
+                <div class="modal-dots">
+                    <div class="dot dot-r"></div>
+                    <div class="dot dot-y"></div>
+                    <div class="dot dot-g"></div>
+                </div>
+                <span class="modal-title">🇧🇹 Cryptocurrency Readiness — GNH Story</span>
+                <button class="modal-close" onclick="closeGNHModal()">✕</button>
+            </div>
+            <div class="modal-body" id="gnhModalBody"></div>
+        </div>
     </div>
+
+    <script type="module">
+        import { TableauEventType } from "https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js";
+
+        // Main Dashboard
+        window.openModal = function() {
+            const overlay = document.getElementById('modalOverlay');
+            const body = document.getElementById('modalBody');
+            if (!body.querySelector('tableau-viz')) {
+                const viz = document.createElement("tableau-viz");
+                viz.setAttribute("src", "https://public.tableau.com/shared/7QSM5ZBYJ");
+                viz.setAttribute("width", "100%");
+                viz.setAttribute("height", "900");
+                viz.setAttribute("hide-tabs", "false");
+                viz.setAttribute("toolbar", "bottom");
+                body.appendChild(viz);
+            }
+            overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => overlay.classList.add('active'), 10);
+        }
+
+        window.closeModal = function() {
+            const overlay = document.getElementById('modalOverlay');
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        window.handleOverlayClick = function(e) {
+            if (e.target === document.getElementById('modalOverlay')) closeModal();
+        }
+
+        // GNH Story
+        window.openGNHModal = function() {
+            const overlay = document.getElementById('gnhModalOverlay');
+            const body = document.getElementById('gnhModalBody');
+            if (!body.querySelector('tableau-viz')) {
+                const viz = document.createElement("tableau-viz");
+                viz.setAttribute("src", "https://public.tableau.com/views/Tableaucryptoreadiness/Story2");
+                viz.setAttribute("width", "100%");
+                viz.setAttribute("height", "900");
+                viz.setAttribute("hide-tabs", "false");
+                viz.setAttribute("toolbar", "bottom");
+                body.appendChild(viz);
+            }
+            overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => overlay.classList.add('active'), 10);
+        }
+
+        window.closeGNHModal = function() {
+            const overlay = document.getElementById('gnhModalOverlay');
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        window.handleGNHOverlayClick = function(e) {
+            if (e.target === document.getElementById('gnhModalOverlay')) closeGNHModal();
+        }
+
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                closeGNHModal();
+            }
+        });
+    </script>
 
 </body>
 </html>

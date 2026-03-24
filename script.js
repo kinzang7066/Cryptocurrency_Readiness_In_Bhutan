@@ -94,7 +94,7 @@ window.handleGNHOverlayClick = function(e) {
     if (e.target === document.getElementById('gnhModalOverlay')) closeGNHModal();
 }
 
-// Readiness Story
+// Readiness Story - how can readiness increase over time.
 window.openReadinessModal = function() {
     const overlay = document.getElementById('readinessModalOverlay');
     const body = document.getElementById('readinessModalBody');

@@ -268,6 +268,49 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
     .stat-lbl{font-size:9px;}
     .q-compare-val{font-size:20px;}
 }
+/* QUIZ SOLUTIONS */
+.qs-divider{height:1px;background:#e8eef4;margin:24px 0;}
+.qs-heading{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.qs-sub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.6;}
+.qs-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;}
+.qs-sum-card{background:var(--light);border-radius:10px;padding:12px;text-align:center;}
+.qs-sum-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--navy);}
+.qs-sum-lbl{font-size:10px;color:var(--muted);margin-top:2px;}
+.qs-filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.qs-filter{padding:5px 12px;border:1px solid #dce6f0;border-radius:50px;background:var(--white);color:var(--muted);font-size:11px;font-family:'Outfit',sans-serif;cursor:pointer;transition:all 0.15s;}
+.qs-filter:hover{background:var(--light);}
+.qs-filter.active{background:var(--teal);border-color:var(--teal);color:var(--white);}
+.qs-sol-list{display:flex;flex-direction:column;gap:12px;margin-bottom:20px;}
+.qs-sol{background:var(--white);border:1px solid #e0eaf4;border-radius:0 10px 10px 0;padding:16px;border-left:3px solid var(--teal);}
+.qs-sol.urgent{border-left-color:var(--red);}
+.qs-sol.medium{border-left-color:var(--gold);}
+.qs-sol-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px;}
+.qs-sol-title{font-size:13px;font-weight:600;color:var(--navy);line-height:1.4;}
+.qs-badge{font-size:10px;padding:3px 8px;border-radius:50px;white-space:nowrap;flex-shrink:0;}
+.qs-badge.urgent{background:#fcebeb;color:#a32d2d;}
+.qs-badge.medium{background:#faeeda;color:#633806;}
+.qs-badge.good{background:#e1f5ee;color:#085041;}
+.qs-sol-body{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;}
+.qs-actions{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
+.qs-action{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--navy);line-height:1.5;}
+.qs-adot{width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:5px;}
+.qs-sol.urgent .qs-adot{background:var(--red);}
+.qs-sol.medium .qs-adot{background:var(--gold);}
+.qs-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.qs-tag{font-size:10px;background:var(--light);color:var(--muted);padding:2px 7px;border-radius:4px;border:0.5px solid #dce6f0;}
+.qs-tag.impact{background:#e1f5ee;color:#085041;border-color:#9FE1CB;}
+.qs-roadmap-wrap{background:var(--light);border-radius:10px;padding:16px;margin-bottom:20px;}
+.qs-roadmap-title{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:14px;}
+.qs-road-item{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start;}
+.qs-road-item:last-child{margin-bottom:0;}
+.qs-year{min-width:56px;background:var(--white);border-radius:8px;padding:6px 8px;text-align:center;border:1px solid #dce6f0;}
+.qs-year-lbl{font-size:9px;color:var(--muted);}
+.qs-year-score{font-size:15px;font-weight:600;color:var(--navy);}
+.qs-road-content p{font-size:12px;font-weight:600;color:var(--navy);margin-bottom:2px;}
+.qs-road-content span{font-size:11px;color:var(--muted);line-height:1.5;}
+.qs-road-bar-wrap{margin-top:5px;height:3px;background:#dce6f0;border-radius:2px;overflow:hidden;}
+.qs-road-bar{height:100%;border-radius:2px;background:var(--teal);}
+
     </style>
 </head>
 <body>
@@ -457,10 +500,30 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
                     <div class="q-compare-card"><div class="q-compare-val" id="qVsAvg"></div><div class="q-compare-lbl">vs average</div></div>
                 </div>
                 <div class="q-domain-bars" id="qDomainBars"></div>
-                <div class="q-reco-box">
-                    <div class="q-reco-title">Your personalised recommendations</div>
-                    <div id="qRecoList"></div>
+
+                <!-- SOLUTIONS SECTION -->
+                <div class="qs-divider"></div>
+                <div class="qs-heading">Your personalised improvement plan</div>
+                <div class="qs-sub" id="qsSub"></div>
+
+                <div class="qs-summary" id="qsSummary"></div>
+
+                <div class="qs-filter-row" id="qsFilterRow">
+                    <button class="qs-filter active" onclick="qsFilter('all',this)">All</button>
+                    <button class="qs-filter" onclick="qsFilter('education',this)">Education</button>
+                    <button class="qs-filter" onclick="qsFilter('security',this)">Security</button>
+                    <button class="qs-filter" onclick="qsFilter('infrastructure',this)">Infrastructure</button>
+                    <button class="qs-filter" onclick="qsFilter('governance',this)">Governance</button>
+                    <button class="qs-filter" onclick="qsFilter('community',this)">Community</button>
                 </div>
+
+                <div id="qsSolutions"></div>
+
+                <div class="qs-roadmap-wrap">
+                    <div class="qs-roadmap-title">Your readiness roadmap</div>
+                    <div id="qsRoadmap"></div>
+                </div>
+
                 <button class="q-btn-restart" onclick="qRestart()">Take the quiz again</button>
             </div>
         </div>
@@ -666,6 +729,7 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
         }
         document.getElementById('qRecoList').innerHTML = rHTML;
         document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
+        qsRenderAll(score);
     }
 
     function qRestart() {
@@ -678,7 +742,189 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
 
     // Start quiz on page load
     qRender();
-    </script>
+    // ══════════════════════════════════════════════════
+    // SOLUTIONS ENGINE
+    // ══════════════════════════════════════════════════
+    var qsCurrentFilter = 'all';
+    var qsCurrentScore  = 65;
 
+    var qsSolutions = [
+        {
+            id: 'knowledge', category: 'education',
+            title: 'Build your crypto knowledge from scratch',
+            urgentBelow: 60, mediumBelow: 80,
+            body: 'You cannot safely adopt what you do not understand. Start with the basics — what Bitcoin is, how blockchain works, and what makes crypto different from regular money.',
+            actions: [
+                'Watch 3 beginner videos on Bitcoin and blockchain this week',
+                'Read the Royal Monetary Authority of Bhutan\'s official statements on digital assets',
+                'Follow one trusted crypto education source — avoid anyone promising quick profits'
+            ],
+            gnh: ['Education', 'Living Standards'], impact: '+8 to +15 points'
+        },
+        {
+            id: 'wallet', category: 'education',
+            title: 'Practice with a demo crypto wallet before using real money',
+            urgentBelow: 50, mediumBelow: 70,
+            body: 'Technical confidence comes from practice, not reading. Try a demo wallet where no real money is involved. Get comfortable with the interface before committing any actual funds.',
+            actions: [
+                'Download a reputable demo wallet app and set it up with practice funds',
+                'Try sending and receiving small demo amounts between two accounts',
+                'Learn what a private key and seed phrase are — and never share them'
+            ],
+            gnh: ['Education', 'Psychological Wellbeing'], impact: '+5 to +10 points'
+        },
+        {
+            id: 'scam', category: 'security',
+            title: 'Protect yourself from crypto scams — awareness is your best defence',
+            urgentBelow: 70, mediumBelow: 85,
+            body: 'DrukShift data shows the 35-44 age group has the highest trust but lowest security concern — the most vulnerable combination. High awareness does not mean high safety.',
+            actions: [
+                'Learn the top 5 crypto scams — fake apps, pump and dump, phishing links',
+                'Never share your PIN, password or seed phrase with anyone — ever',
+                'If something promises guaranteed returns — walk away immediately',
+                'Verify every app and website URL before entering any financial information'
+            ],
+            gnh: ['Psychological Wellbeing', 'Governance'], impact: '+7 to +12 points'
+        },
+        {
+            id: 'internet', category: 'infrastructure',
+            title: 'Improve your internet reliability before transacting with crypto',
+            urgentBelow: 60, mediumBelow: 75,
+            body: 'Poor internet is the number one barrier from our Bhutan survey. An interrupted connection during a crypto transaction can result in lost funds. Reliable connectivity is a safety requirement.',
+            actions: [
+                'Test your internet speed — you need at least 5 Mbps for safe crypto transactions',
+                'If rural — contact NDCA or Bhutan Telecom about rural broadband programs',
+                'Never transact crypto on public WiFi — use mobile data or home connection only',
+                'Advocate in your community for improved internet — it benefits everyone'
+            ],
+            gnh: ['Living Standards', 'Community Vitality'], impact: '+6 to +10 points'
+        },
+        {
+            id: 'regulation', category: 'governance',
+            title: 'Stay informed about Bhutan\'s cryptocurrency regulations',
+            urgentBelow: 65, mediumBelow: 80,
+            body: 'Many Bhutanese adults are unaware of the legal status of cryptocurrency in Bhutan. Before adopting anything, understand what is permitted, what is regulated and what consumer protections exist.',
+            actions: [
+                'Visit the Royal Monetary Authority website and search for digital asset guidelines',
+                'Follow official government announcements on cryptocurrency policy',
+                'Ask your bank directly — what is their position on crypto-linked transactions?',
+                'Join community meetings where digital finance is discussed'
+            ],
+            gnh: ['Governance', 'Community Vitality'], impact: '+5 to +8 points'
+        },
+        {
+            id: 'community', category: 'community',
+            title: 'Start with your community — let trust build naturally',
+            urgentBelow: 100, mediumBelow: 100,
+            body: 'DrukShift found most Bhutanese said Maybe — not No. These undecided people are waiting to see crypto working safely in real life. You can help by starting small in your own community.',
+            actions: [
+                'Talk to one trusted friend or family member about what you have learned',
+                'Share the DrukShift readiness quiz with your network — more data helps everyone',
+                'Think GNH-first — ask how this technology serves your community, not just you',
+                'Identify one local business willing to explore crypto payments in future'
+            ],
+            gnh: ['Community Vitality', 'Time Use', 'Education'], impact: 'Multiplies over time'
+        }
+    ];
+
+    function qsFilter(cat, btn) {
+        qsCurrentFilter = cat;
+        var btns = document.querySelectorAll('.qs-filter');
+        for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+        btn.classList.add('active');
+        qsRenderSolutions(qsCurrentScore);
+    }
+
+    function qsRenderAll(score) {
+        qsCurrentScore = score;
+        var gap    = Math.max(0, 80 - score);
+        var urgent = 0;
+        for (var i = 0; i < qsSolutions.length; i++) { if (score < qsSolutions[i].urgentBelow) urgent++; }
+        var timeEst = score < 50 ? '3-6 months' : score < 70 ? '1-3 months' : score < 80 ? '2-4 weeks' : 'Ongoing';
+
+        var subText = score >= 80
+            ? 'You are above the Bhutan average of 80% — here are ways to keep strengthening and help your community.'
+            : 'Your score is below the Bhutan average of 80% — these personalised solutions will help you improve step by step.';
+        document.getElementById('qsSub').textContent = subText;
+
+        document.getElementById('qsSummary').innerHTML =
+            '<div class="qs-sum-card"><div class="qs-sum-val">' + (gap > 0 ? '+' + gap + '%' : 'Above') + '</div><div class="qs-sum-lbl">Points to average</div></div>' +
+            '<div class="qs-sum-card"><div class="qs-sum-val">' + urgent + '</div><div class="qs-sum-lbl">Priority actions</div></div>' +
+            '<div class="qs-sum-card"><div class="qs-sum-val">' + timeEst + '</div><div class="qs-sum-lbl">Est. time to improve</div></div>';
+
+        qsRenderSolutions(score);
+        qsRenderRoadmap(score);
+    }
+
+    function qsRenderSolutions(score) {
+        var filtered = [];
+        for (var i = 0; i < qsSolutions.length; i++) {
+            if (qsCurrentFilter === 'all' || qsSolutions[i].category === qsCurrentFilter) {
+                filtered.push(qsSolutions[i]);
+            }
+        }
+        filtered.sort(function(a, b) {
+            var aU = score < a.urgentBelow, bU = score < b.urgentBelow;
+            if (aU && !bU) return -1; if (!aU && bU) return 1;
+            var aM = score < a.mediumBelow, bM = score < b.mediumBelow;
+            if (aM && !bM) return -1; if (!aM && bM) return 1;
+            return 0;
+        });
+
+        var html = '<div class="qs-sol-list">';
+        if (filtered.length === 0) {
+            html += '<div style="font-size:13px;color:var(--muted);padding:8px 0;">No solutions in this category.</div>';
+        }
+        for (var i = 0; i < filtered.length; i++) {
+            var s = filtered[i];
+            var isUrgent = score < s.urgentBelow;
+            var isMedium = !isUrgent && score < s.mediumBelow;
+            var cls   = isUrgent ? 'qs-sol urgent' : isMedium ? 'qs-sol medium' : 'qs-sol';
+            var bCls  = isUrgent ? 'qs-badge urgent' : isMedium ? 'qs-badge medium' : 'qs-badge good';
+            var bText = isUrgent ? 'Priority' : isMedium ? 'Recommended' : 'Strengthen';
+
+            html += '<div class="' + cls + '">';
+            html += '<div class="qs-sol-header"><div class="qs-sol-title">' + s.title + '</div><div class="' + bCls + '">' + bText + '</div></div>';
+            html += '<div class="qs-sol-body">' + s.body + '</div>';
+            html += '<div class="qs-actions">';
+            for (var j = 0; j < s.actions.length; j++) {
+                html += '<div class="qs-action"><div class="qs-adot"></div><span>' + s.actions[j] + '</span></div>';
+            }
+            html += '</div><div class="qs-tags">';
+            for (var k = 0; k < s.gnh.length; k++) {
+                html += '<span class="qs-tag">' + s.gnh[k] + '</span>';
+            }
+            html += '<span class="qs-tag impact">' + s.impact + '</span></div></div>';
+        }
+        html += '</div>';
+        document.getElementById('qsSolutions').innerHTML = html;
+    }
+
+    function qsRenderRoadmap(score) {
+        var y1 = Math.min(100, score + 8);
+        var y2 = Math.min(100, y1 + 7);
+        var y3 = Math.min(100, y2 + 6);
+        var y4 = Math.min(100, y3 + 5);
+        var steps = [
+            { label: 'Now',    sc: score, focus: 'Assess your gaps',     detail: 'Take the quiz, identify weak areas, make a personal improvement plan' },
+            { label: 'Year 1', sc: y1,    focus: 'Learn and protect',    detail: 'Complete crypto basics, learn scam awareness, improve internet access' },
+            { label: 'Year 2', sc: y2,    focus: 'Practice and build',   detail: 'Use a demo wallet regularly, follow regulations, join community discussions' },
+            { label: 'Year 3', sc: y3,    focus: 'Adopt carefully',      detail: 'Start small with regulated crypto products, help others in your community' },
+            { label: 'Year 4', sc: y4,    focus: 'Lead and grow',        detail: 'Share knowledge, mentor others, contribute to GNH-aligned adoption in Bhutan' }
+        ];
+        var html = '';
+        for (var i = 0; i < steps.length; i++) {
+            var st = steps[i];
+            html += '<div class="qs-road-item">';
+            html += '<div class="qs-year"><div class="qs-year-lbl">' + st.label + '</div><div class="qs-year-score">' + Math.round(st.sc) + '%</div></div>';
+            html += '<div class="qs-road-content" style="flex:1;">';
+            html += '<p>' + st.focus + '</p><span>' + st.detail + '</span>';
+            html += '<div class="qs-road-bar-wrap"><div class="qs-road-bar" style="width:' + Math.round(st.sc) + '%"></div></div>';
+            html += '</div></div>';
+        }
+        document.getElementById('qsRoadmap').innerHTML = html;
+    }
+
+    </script>
 </body>
 </html>

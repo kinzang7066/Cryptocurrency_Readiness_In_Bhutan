@@ -253,7 +253,6 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
     .stat-item{padding:20px 16px;border-bottom:1px solid #edf2f7;}
     .about-section{padding:60px 24px;}
     .solutions-section,.readiness-section,.findings-section{padding:60px 24px;}
-    .solutions-grid,.findings-grid,.reports-grid{grid-template-columns:1fr;}
     .quiz-section{padding:60px 20px;}
     .quiz-card{padding:24px 20px;}
     .q-likert-row{gap:4px;}
@@ -310,7 +309,6 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
 .qs-road-content span{font-size:11px;color:var(--muted);line-height:1.5;}
 .qs-road-bar-wrap{margin-top:5px;height:3px;background:#dce6f0;border-radius:2px;overflow:hidden;}
 .qs-road-bar{height:100%;border-radius:2px;background:var(--teal);}
-
     </style>
 </head>
 <body>
@@ -465,8 +463,31 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
                 <p>10 questions · Rate yourself 1 to 10 · Based on real data from 113 Bhutanese adults</p>
             </div>
 
-            <!-- QUIZ QUESTIONS -->
-            <div class="quiz-card" id="quizWrap">
+            <!-- ✅ NEW: USER INFO CARD -->
+            <div class="quiz-card" id="userInfoWrap">
+                <div style="text-align:center;margin-bottom:24px;">
+                    <div style="font-size:28px;margin-bottom:8px;">👤</div>
+                    <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px;">Before you begin</div>
+                    <div style="font-size:13px;color:var(--muted);">Enter your details to save your score and compare next time</div>
+                </div>
+                <div style="margin-bottom:16px;">
+                    <label style="font-size:12px;font-weight:600;color:var(--navy);display:block;margin-bottom:6px;">Your Name</label>
+                    <input id="userName" type="text" placeholder="e.g. Kinzang Choden"
+                        style="width:100%;padding:12px 14px;border:1px solid #dce6f0;border-radius:8px;font-size:14px;font-family:'Outfit',sans-serif;outline:none;">
+                </div>
+                <div style="margin-bottom:24px;">
+                    <label style="font-size:12px;font-weight:600;color:var(--navy);display:block;margin-bottom:6px;">Your Email</label>
+                    <input id="userEmail" type="email" placeholder="e.g. kinzang@email.com"
+                        style="width:100%;padding:12px 14px;border:1px solid #dce6f0;border-radius:8px;font-size:14px;font-family:'Outfit',sans-serif;outline:none;">
+                </div>
+                <button onclick="startQuiz()"
+                    style="width:100%;padding:13px;background:var(--teal);color:var(--white);border:none;border-radius:8px;font-size:14px;font-weight:600;font-family:'Outfit',sans-serif;cursor:pointer;">
+                    Start Quiz →
+                </button>
+            </div>
+
+            <!-- QUIZ QUESTIONS (hidden until name/email entered) -->
+            <div class="quiz-card" id="quizWrap" style="display:none">
                 <div class="q-progress-wrap">
                     <div class="q-progress-label">
                         <span id="qProgressText">Question 1 of 10</span>
@@ -488,6 +509,9 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
 
             <!-- QUIZ RESULTS -->
             <div class="quiz-card" id="qResultWrap" style="display:none">
+                <!-- ✅ NEW: History comparison box -->
+                <div id="qHistoryBox"></div>
+
                 <div class="q-score-circle" id="qScoreCircle">
                     <div class="q-score-num" id="qScoreNum">0</div>
                     <div class="q-score-denom">out of 100</div>
@@ -559,6 +583,63 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
 
     <script>
     // ══════════════════════════════════════════════════
+    // ✅ NEW: USER & BACKEND FUNCTIONS
+    // ══════════════════════════════════════════════════
+    var currentUser = { name: '', email: '' };
+
+    function startQuiz() {
+        var name  = document.getElementById('userName').value.trim();
+        var email = document.getElementById('userEmail').value.trim();
+        if (!name || !email) {
+            alert('Please enter your name and email to continue.');
+            return;
+        }
+        currentUser.name  = name;
+        currentUser.email = email;
+        document.getElementById('userInfoWrap').style.display = 'none';
+        document.getElementById('quizWrap').style.display     = 'block';
+        qRender();
+    }
+
+    async function saveQuizResult(score, answers) {
+        try {
+            await fetch('http://localhost:5000/api/quiz', {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify({
+                    name:    currentUser.name,
+                    email:   currentUser.email,
+                    score:   score,
+                    answers: answers
+                })
+            });
+            console.log('Quiz result saved ✅');
+        } catch (err) {
+            console.error('Could not save result', err);
+        }
+    }
+
+    async function fetchHistory(score) {
+        try {
+            const res  = await fetch('http://localhost:5000/api/quiz/' + currentUser.email);
+            const data = await res.json();
+            if (data.history && data.history.length > 1) {
+                var prev = data.history[1].score;
+                var diff = score - prev;
+                document.getElementById('qHistoryBox').innerHTML =
+                    '<div style="background:#e1f5ee;border-radius:10px;padding:16px;margin-bottom:16px;text-align:center;">' +
+                    '<div style="font-size:12px;color:#085041;font-weight:600;margin-bottom:4px;">📊 Your Progress</div>' +
+                    '<div style="font-size:22px;font-weight:700;color:#085041;">' +
+                    'Last time: ' + prev + '% → Now: ' + score + '% ' +
+                    (diff > 0 ? '📈 +' + diff + '%' : diff < 0 ? '📉 ' + diff + '%' : '➡️ Same') +
+                    '</div></div>';
+            }
+        } catch (err) {
+            console.error('Could not fetch history', err);
+        }
+    }
+
+    // ══════════════════════════════════════════════════
     // MODAL FUNCTIONS
     // ══════════════════════════════════════════════════
     function openViz(overlayId, bodyId, src) {
@@ -600,14 +681,14 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
     // READINESS QUIZ — Likert Scale 1-10
     // ══════════════════════════════════════════════════
     var qQuestions = [
-        { text: "How familiar are you with what cryptocurrency is and how it works?",                         area: "Knowledge" },
-        { text: "How confident are you in your ability to use a crypto wallet or exchange app?",              area: "Technical Skill" },
+        { text: "How familiar are you with what cryptocurrency?",                         area: "Knowledge" },
+        { text: "How confident are you in your ability to use a crypto wallet?",              area: "Technical Skill" },
         { text: "How much do you trust cryptocurrency as a reliable form of digital money?",                   area: "Trust" },
-        { text: "How aware are you of the risks and scams associated with cryptocurrency?",                    area: "Security Awareness" },
-        { text: "How ready do you feel personally to start investing or transacting with cryptocurrency?",     area: "Personal Readiness" },
-        { text: "How stable and reliable is your internet connection for daily digital activities?",           area: "Infrastructure" },
-        { text: "How comfortable are you with digital financial tools such as mobile banking or e-wallets?",  area: "Digital Comfort" },
-        { text: "How informed are you about cryptocurrency regulations and laws in Bhutan?",                   area: "Regulatory Awareness" },
+        { text: "How aware are you of the risks associated with cryptocurrency?",                    area: "Security Awareness" },
+        { text: "How ready do you feel personally to start transacting with cryptocurrency?",     area: "Personal Readiness" },
+        { text: "How reliable is your internet connection for daily digital activities?",           area: "Infrastructure" },
+        { text: "How comfortable are you with digital financial tools such as mobile banking?",  area: "Digital Comfort" },
+        { text: "Have you heard about the cryptocurrency regulations? ",                   area: "Regulatory Awareness" },
         { text: "How willing are you to adopt cryptocurrency if it becomes safe and widely accepted in Bhutan?", area: "Adoption Willingness" },
         { text: "How clearly do you understand how cryptocurrency aligns with Bhutan's GNH values?",          area: "GNH Alignment" }
     ];
@@ -679,6 +760,10 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
         var score = Math.round((total / 100) * 100);
         var diff  = score - 80;
 
+        // ✅ NEW: Save to backend and fetch history
+        saveQuizResult(score, qAnswers);
+        fetchHistory(score);
+
         document.getElementById('quizWrap').style.display    = 'none';
         document.getElementById('qResultWrap').style.display = 'block';
         document.getElementById('qScoreNum').textContent     = score;
@@ -715,19 +800,6 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
                 '</div>';
         }
 
-        var recos = [];
-        if (qAnswers[0] < 6) recos.push('Learn crypto basics — understand what Bitcoin and blockchain mean before investing');
-        if (qAnswers[1] < 6) recos.push('Practice with a demo wallet app to build technical confidence before using real money');
-        if (qAnswers[3] < 6) recos.push('Study common crypto scams — high promises, fake apps and phishing are the biggest threats');
-        if (qAnswers[5] < 6) recos.push('Improve your internet access — reliable connectivity is essential for safe crypto transactions');
-        if (qAnswers[7] < 6) recos.push('Learn about Royal Monetary Authority of Bhutan guidelines on digital finance');
-        if (recos.length === 0) recos.push('You are well prepared — stay updated on Bhutan crypto regulations and new developments');
-
-        var rHTML = '';
-        for (var i = 0; i < recos.length; i++) {
-            rHTML += '<div class="q-reco-item"><div class="q-reco-dot"></div><span>' + recos[i] + '</span></div>';
-        }
-        document.getElementById('qRecoList').innerHTML = rHTML;
         document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
         qsRenderAll(score);
     }
@@ -735,13 +807,11 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
     function qRestart() {
         qCurrent = 0;
         for (var i = 0; i < qAnswers.length; i++) { qAnswers[i] = null; }
-        document.getElementById('qResultWrap').style.display = 'none';
-        document.getElementById('quizWrap').style.display    = 'block';
-        qRender();
+        document.getElementById('qResultWrap').style.display  = 'none';
+        document.getElementById('qHistoryBox').innerHTML      = '';
+        document.getElementById('userInfoWrap').style.display = 'block';
     }
 
-    // Start quiz on page load
-    qRender();
     // ══════════════════════════════════════════════════
     // SOLUTIONS ENGINE
     // ══════════════════════════════════════════════════
@@ -779,7 +849,7 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
             urgentBelow: 70, mediumBelow: 85,
             body: 'DrukShift data shows the 35-44 age group has the highest trust but lowest security concern — the most vulnerable combination. High awareness does not mean high safety.',
             actions: [
-                'Learn the top 5 crypto scams - fake apps, pump and dump, phishing links',
+                'Learn the top 5 crypto scams — fake apps, pump and dump, phishing links',
                 'Never share your PIN, password or seed phrase with anyone — ever',
                 'If something promises guaranteed returns — walk away immediately',
                 'Verify every app and website URL before entering any financial information'

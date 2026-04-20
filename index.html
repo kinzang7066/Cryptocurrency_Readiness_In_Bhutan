@@ -620,24 +620,25 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
     }
 
     async function fetchHistory(score) {
-        try {
-            const res  = await fetch('https://drukshift-vakend.onrender.com/api/quiz', + currentUser.email);
-            const data = await res.json();
-            if (data.history && data.history.length > 1) {
-                var prev = data.history[1].score;
-                var diff = score - prev;
-                document.getElementById('qHistoryBox').innerHTML =
-                    '<div style="background:#e1f5ee;border-radius:10px;padding:16px;margin-bottom:16px;text-align:center;">' +
-                    '<div style="font-size:12px;color:#085041;font-weight:600;margin-bottom:4px;">📊 Your Progress</div>' +
-                    '<div style="font-size:22px;font-weight:700;color:#085041;">' +
-                    'Last time: ' + prev + '% → Now: ' + score + '% ' +
-                    (diff > 0 ? '📈 +' + diff + '%' : diff < 0 ? '📉 ' + diff + '%' : '➡️ Same') +
-                    '</div></div>';
-            }
-        } catch (err) {
-            console.error('Could not fetch history', err);
+    try {
+        const res = await fetch('https://drukshift-vakend.onrender.com/api/quiz/' + encodeURIComponent(currentUser.email));
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.history && data.history.length > 1) {
+            var prev = data.history[1].score;
+            var diff = score - prev;
+            document.getElementById('qHistoryBox').innerHTML =
+                '<div style="background:#e1f5ee;border-radius:10px;padding:16px;margin-bottom:16px;text-align:center;">' +
+                '<div style="font-size:12px;color:#085041;font-weight:600;margin-bottom:4px;">📊 Your Progress</div>' +
+                '<div style="font-size:22px;font-weight:700;color:#085041;">' +
+                'Last time: ' + prev + '% → Now: ' + score + '% ' +
+                (diff > 0 ? '📈 +' + diff + '%' : diff < 0 ? '📉 ' + diff + '%' : '➡️ Same') +
+                '</div></div>';
         }
+    } catch (err) {
+        console.error('Could not fetch history', err);
     }
+}
 
     // ══════════════════════════════════════════════════
     // MODAL FUNCTIONS

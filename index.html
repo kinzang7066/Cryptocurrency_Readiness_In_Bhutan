@@ -603,7 +603,7 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
 
     async function saveQuizResult(score, answers) {
         try {
-           await fetch('https://drukshift-backend.onrender.com/api/quiz', {
+           await fetch('https://drukshift-vakend.onrender.com/api/quiz', {
                 method:  'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body:    JSON.stringify({
@@ -621,7 +621,7 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
 
     async function fetchHistory(score) {
         try {
-            const res  = await fetch('https://drukshift-backend.onrender.com/api/quiz', + currentUser.email);
+            const res  = await fetch('https://drukshift-vakend.onrender.com/api/quiz', + currentUser.email);
             const data = await res.json();
             if (data.history && data.history.length > 1) {
                 var prev = data.history[1].score;

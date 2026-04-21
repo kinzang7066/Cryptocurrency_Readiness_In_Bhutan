@@ -763,7 +763,7 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
 
         // ✅ NEW: Save to backend and fetch history
         saveQuizResult(score, qAnswers);
-        fetchHistory(score);
+        setTimeout(function() { fetchHistory(score); }, 2000);
 
         document.getElementById('quizWrap').style.display    = 'none';
         document.getElementById('qResultWrap').style.display = 'block';

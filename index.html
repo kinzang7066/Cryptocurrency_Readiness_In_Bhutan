@@ -309,6 +309,52 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
 .qs-road-content span{font-size:11px;color:var(--muted);line-height:1.5;}
 .qs-road-bar-wrap{margin-top:5px;height:3px;background:#dce6f0;border-radius:2px;overflow:hidden;}
 .qs-road-bar{height:100%;border-radius:2px;background:var(--teal);}
+
+/* ✅ RESOURCES SECTION */
+.resources-section{padding:100px 48px;background:var(--white);}
+.resources-inner{max-width:1100px;margin:0 auto;}
+.resources-header{text-align:center;margin-bottom:48px;}
+.resources-header h2{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);font-weight:700;color:var(--navy);margin-bottom:12px;line-height:1.2;}
+.resources-header h2 em{font-style:italic;color:var(--teal);}
+.resources-header p{font-size:14px;color:var(--muted);max-width:520px;margin:0 auto;}
+.res-tabs{display:flex;gap:0;justify-content:center;margin-bottom:48px;border-radius:12px;overflow:hidden;border:1px solid #dce6f0;width:fit-content;margin-left:auto;margin-right:auto;}
+.res-tab{padding:14px 40px;font-size:14px;font-weight:600;font-family:'Outfit',sans-serif;cursor:pointer;border:none;background:var(--white);color:var(--muted);transition:all 0.2s;display:flex;align-items:center;gap:8px;}
+.res-tab.active{background:var(--teal);color:var(--white);}
+.res-tab:hover:not(.active){background:var(--light);color:var(--navy);}
+.res-content{display:none;}
+.res-content.active{display:block;}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.res-card{background:var(--light);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:12px;transition:transform 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;border:1px solid #e4eaf2;}
+.res-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(8,25,45,0.1);}
+.res-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;}
+.res-card.video::before{background:var(--red);}
+.res-card.pdf::before{background:var(--accent);}
+.res-card.link::before{background:var(--teal);}
+.res-card.guide::before{background:var(--mid);}
+.res-type{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:50px;width:fit-content;}
+.res-type.video{background:#fcebeb;color:#a32d2d;}
+.res-type.pdf{background:#faeeda;color:#633806;}
+.res-type.link{background:#e1f5ee;color:#085041;}
+.res-type.guide{background:#e8eef4;color:var(--blue);}
+.res-card-title{font-size:15px;font-weight:600;color:var(--navy);line-height:1.4;}
+.res-card-desc{font-size:13px;color:#7a95ab;line-height:1.7;flex:1;}
+.res-card-meta{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px;}
+.res-card-meta span{background:var(--white);padding:2px 8px;border-radius:4px;border:1px solid #dce6f0;}
+.res-card-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;font-family:'Outfit',sans-serif;text-decoration:none;transition:all 0.2s;border:none;cursor:pointer;margin-top:auto;}
+.res-card-btn.video{background:#fcebeb;color:#a32d2d;}
+.res-card-btn.video:hover{background:#e63946;color:var(--white);}
+.res-card-btn.pdf{background:#faeeda;color:#633806;}
+.res-card-btn.pdf:hover{background:var(--accent);color:var(--navy);}
+.res-card-btn.link{background:#e1f5ee;color:#085041;}
+.res-card-btn.link:hover{background:var(--teal);color:var(--white);}
+.res-card-btn.guide{background:#e8eef4;color:var(--blue);}
+.res-card-btn.guide:hover{background:var(--mid);color:var(--white);}
+.res-category-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:32px 0 16px;padding-bottom:8px;border-bottom:1px solid #e4eaf2;}
+@media(max-width:768px){
+    .resources-section{padding:60px 20px;}
+    .res-grid{grid-template-columns:1fr;}
+    .res-tab{padding:12px 24px;font-size:13px;}
+}
     </style>
 </head>
 <body>
@@ -324,6 +370,7 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
             <li><a href="#findings">Findings</a></li>
             <li><a href="#reports">Reports</a></li>
             <li><a href="#quiz" style="color:var(--gold)">Take Quiz</a></li>
+            <li><a href="#resources" style="color:var(--teal)">📚 Resources</a></li>
         </ul>
     </nav>
 
@@ -463,7 +510,7 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
                 <p>10 questions · Rate yourself 1 to 10 · Based on real data from 113 Bhutanese adults</p>
             </div>
 
-            <!-- ✅ NEW: USER INFO CARD -->
+            <!-- USER INFO CARD -->
             <div class="quiz-card" id="userInfoWrap">
                 <div style="text-align:center;margin-bottom:24px;">
                     <div style="font-size:28px;margin-bottom:8px;">👤</div>
@@ -486,7 +533,7 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
                 </button>
             </div>
 
-            <!-- QUIZ QUESTIONS (hidden until name/email entered) -->
+            <!-- QUIZ QUESTIONS -->
             <div class="quiz-card" id="quizWrap" style="display:none">
                 <div class="q-progress-wrap">
                     <div class="q-progress-label">
@@ -509,9 +556,7 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
 
             <!-- QUIZ RESULTS -->
             <div class="quiz-card" id="qResultWrap" style="display:none">
-                <!-- ✅ NEW: History comparison box -->
                 <div id="qHistoryBox"></div>
-
                 <div class="q-score-circle" id="qScoreCircle">
                     <div class="q-score-num" id="qScoreNum">0</div>
                     <div class="q-score-denom">out of 100</div>
@@ -524,14 +569,10 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
                     <div class="q-compare-card"><div class="q-compare-val" id="qVsAvg"></div><div class="q-compare-lbl">vs average</div></div>
                 </div>
                 <div class="q-domain-bars" id="qDomainBars"></div>
-
-                <!-- SOLUTIONS SECTION -->
                 <div class="qs-divider"></div>
                 <div class="qs-heading">Your personalised improvement plan</div>
                 <div class="qs-sub" id="qsSub"></div>
-
                 <div class="qs-summary" id="qsSummary"></div>
-
                 <div class="qs-filter-row" id="qsFilterRow">
                     <button class="qs-filter active" onclick="qsFilter('all',this)">All</button>
                     <button class="qs-filter" onclick="qsFilter('education',this)">Education</button>
@@ -540,15 +581,194 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
                     <button class="qs-filter" onclick="qsFilter('governance',this)">Governance</button>
                     <button class="qs-filter" onclick="qsFilter('community',this)">Community</button>
                 </div>
-
                 <div id="qsSolutions"></div>
-
                 <div class="qs-roadmap-wrap">
                     <div class="qs-roadmap-title">Your readiness roadmap</div>
                     <div id="qsRoadmap"></div>
                 </div>
 
+                <!-- ✅ NEW: Resources CTA after quiz results -->
+                <div style="background:linear-gradient(135deg,#e1f5ee,#d4f0e8);border-radius:12px;padding:20px;margin-top:20px;text-align:center;">
+                    <div style="font-size:20px;margin-bottom:8px;">📚</div>
+                    <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:6px;">Ready to improve your score?</div>
+                    <div style="font-size:13px;color:#4a6070;margin-bottom:16px;">Check out our curated resources — videos, guides and tools for individuals and businesses.</div>
+                    <a href="#resources" style="display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:var(--white);padding:12px 28px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;">📚 View Resources →</a>
+                </div>
+
                 <button class="q-btn-restart" onclick="qRestart()">Take the quiz again</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ RESOURCES SECTION — comes right after quiz -->
+    <section class="resources-section" id="resources">
+        <div class="resources-inner">
+            <div class="resources-header">
+                <span class="section-tag" style="color:var(--teal)">📚 Learn & Grow</span>
+                <h2>Resources to Improve<br><em>Crypto Readiness</em></h2>
+                <p>Curated videos, guides and tools for individuals and small businesses in Bhutan looking to build their cryptocurrency knowledge safely.</p>
+            </div>
+
+            <!-- TABS -->
+            <div class="res-tabs">
+                <button class="res-tab active" onclick="resTab('individuals', this)">👤 For Individuals</button>
+                <button class="res-tab" onclick="resTab('businesses', this)">🏢 For Small Businesses</button>
+            </div>
+
+            <!-- INDIVIDUALS TAB -->
+            <div class="res-content active" id="res-individuals">
+                <div class="res-category-label">🎓 Start Here — Crypto Basics</div>
+                <div class="res-grid">
+                    <div class="res-card video">
+                        <div class="res-type video">🎥 Video</div>
+                        <div class="res-card-title">Bitcoin & Blockchain Explained in Plain English</div>
+                        <div class="res-card-desc">A beginner-friendly explanation of what Bitcoin is, how blockchain works, and why it matters — no technical background needed.</div>
+                        <div class="res-card-meta"><span>⏱ 10 min</span><span>Beginner</span></div>
+                        <a href="https://www.youtube.com/watch?v=SSo_EIwHSd4" target="_blank" class="res-card-btn video">▶ Watch Video →</a>
+                    </div>
+                    <div class="res-card video">
+                        <div class="res-type video">🎥 Video</div>
+                        <div class="res-card-title">How Cryptocurrency Actually Works</div>
+                        <div class="res-card-desc">Understand the technical side simply — wallets, keys, transactions, and what makes crypto different from regular digital money.</div>
+                        <div class="res-card-meta"><span>⏱ 12 min</span><span>Beginner</span></div>
+                        <a href="https://www.youtube.com/watch?v=rYQgy8QDEBI" target="_blank" class="res-card-btn video">▶ Watch Video →</a>
+                    </div>
+                    <div class="res-card guide">
+                        <div class="res-type guide">📖 Guide</div>
+                        <div class="res-card-title">Crypto Basics: A Beginner's Reading List</div>
+                        <div class="res-card-desc">CoinDesk's beginner guide covering Bitcoin, Ethereum, wallets, and how to get started safely with zero prior knowledge.</div>
+                        <div class="res-card-meta"><span>📝 Article</span><span>Free</span></div>
+                        <a href="https://www.coindesk.com/learn/bitcoin-101/" target="_blank" class="res-card-btn guide">Read Guide →</a>
+                    </div>
+                </div>
+
+                <div class="res-category-label">🛡️ Stay Safe — Scam Awareness</div>
+                <div class="res-grid">
+                    <div class="res-card video">
+                        <div class="res-type video">🎥 Video</div>
+                        <div class="res-card-title">Top Crypto Scams to Watch Out For</div>
+                        <div class="res-card-desc">Learn how to identify fake apps, phishing links, pump and dump schemes, and romance scams — the most common traps for new users.</div>
+                        <div class="res-card-meta"><span>⏱ 8 min</span><span>Important</span></div>
+                        <a href="https://www.youtube.com/watch?v=0I4UAQOQ-TM" target="_blank" class="res-card-btn video">▶ Watch Video →</a>
+                    </div>
+                    <div class="res-card guide">
+                        <div class="res-type guide">📖 Guide</div>
+                        <div class="res-card-title">How to Spot a Crypto Scam — FBI Guide</div>
+                        <div class="res-card-desc">Official guidance from the FBI on recognising cryptocurrency fraud, protecting your assets, and what to do if you are targeted.</div>
+                        <div class="res-card-meta"><span>📝 Official</span><span>Free</span></div>
+                        <a href="https://www.fbi.gov/scams-and-safety/common-scams-and-crimes/cryptocurrency-fraud" target="_blank" class="res-card-btn guide">Read Guide →</a>
+                    </div>
+                    <div class="res-card link">
+                        <div class="res-type link">🔗 Resource</div>
+                        <div class="res-card-title">RMA Bhutan — Digital Finance Updates</div>
+                        <div class="res-card-desc">Stay informed about the Royal Monetary Authority of Bhutan's official stance on digital assets, regulations, and consumer protections.</div>
+                        <div class="res-card-meta"><span>🏛️ Official</span><span>Bhutan</span></div>
+                        <a href="https://www.rma.org.bt" target="_blank" class="res-card-btn link">Visit RMA →</a>
+                    </div>
+                </div>
+
+                <div class="res-category-label">🚀 Next Steps — Going Deeper</div>
+                <div class="res-grid">
+                    <div class="res-card video">
+                        <div class="res-type video">🎥 Video</div>
+                        <div class="res-card-title">How to Set Up a Crypto Wallet Safely</div>
+                        <div class="res-card-desc">Step by step guide to setting up your first cryptocurrency wallet, understanding seed phrases, and keeping your funds secure.</div>
+                        <div class="res-card-meta"><span>⏱ 15 min</span><span>Intermediate</span></div>
+                        <a href="https://www.youtube.com/watch?v=d8IBpfs9bf4" target="_blank" class="res-card-btn video">▶ Watch Video →</a>
+                    </div>
+                    <div class="res-card guide">
+                        <div class="res-type guide">📖 Guide</div>
+                        <div class="res-card-title">Understanding Crypto in Developing Economies</div>
+                        <div class="res-card-desc">World Bank research on how cryptocurrency adoption impacts financial inclusion in developing nations — relevant context for Bhutan.</div>
+                        <div class="res-card-meta"><span>📝 Research</span><span>Free</span></div>
+                        <a href="https://www.worldbank.org/en/topic/financialsector/brief/fintech" target="_blank" class="res-card-btn guide">Read Research →</a>
+                    </div>
+                    <div class="res-card link">
+                        <div class="res-type link">🔗 Resource</div>
+                        <div class="res-card-title">Khan Academy — Blockchain & Crypto Free Course</div>
+                        <div class="res-card-desc">Free structured course covering Bitcoin, cryptography, and the economics of digital currencies — perfect for self-paced learning.</div>
+                        <div class="res-card-meta"><span>🎓 Free Course</span><span>Self-paced</span></div>
+                        <a href="https://www.khanacademy.org/economics-finance-domain/core-finance/money-and-banking/bitcoin/v/bitcoin-what-is-it" target="_blank" class="res-card-btn link">Start Learning →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BUSINESSES TAB -->
+            <div class="res-content" id="res-businesses">
+                <div class="res-category-label">💡 Getting Started — Crypto for Business</div>
+                <div class="res-grid">
+                    <div class="res-card video">
+                        <div class="res-type video">🎥 Video</div>
+                        <div class="res-card-title">How Small Businesses Can Accept Crypto Payments</div>
+                        <div class="res-card-desc">A practical walkthrough of how small businesses can start accepting Bitcoin and other cryptocurrencies — tools, setup, and what to expect.</div>
+                        <div class="res-card-meta"><span>⏱ 12 min</span><span>Practical</span></div>
+                        <a href="https://www.youtube.com/watch?v=IHpGAe58vas" target="_blank" class="res-card-btn video">▶ Watch Video →</a>
+                    </div>
+                    <div class="res-card guide">
+                        <div class="res-type guide">📖 Guide</div>
+                        <div class="res-card-title">Accepting Crypto in Your Business — Complete Guide</div>
+                        <div class="res-card-desc">Step by step guide for small businesses covering payment processors, accounting for crypto, tax considerations, and customer trust.</div>
+                        <div class="res-card-meta"><span>📝 Guide</span><span>Free</span></div>
+                        <a href="https://www.coinbase.com/learn/crypto-basics/what-is-cryptocurrency" target="_blank" class="res-card-btn guide">Read Guide →</a>
+                    </div>
+                    <div class="res-card link">
+                        <div class="res-type link">🔗 Tool</div>
+                        <div class="res-card-title">BTCPay Server — Free Crypto Payment Tool</div>
+                        <div class="res-card-desc">Open source, self-hosted payment processor that lets any business accept Bitcoin directly — no third party, no fees, full control.</div>
+                        <div class="res-card-meta"><span>🛠️ Free Tool</span><span>Open Source</span></div>
+                        <a href="https://btcpayserver.org" target="_blank" class="res-card-btn link">Explore Tool →</a>
+                    </div>
+                </div>
+
+                <div class="res-category-label">⚖️ Legal & Regulatory Guidance</div>
+                <div class="res-grid">
+                    <div class="res-card link">
+                        <div class="res-type link">🔗 Official</div>
+                        <div class="res-card-title">RMA Bhutan — Financial Regulations</div>
+                        <div class="res-card-desc">The Royal Monetary Authority of Bhutan is the central bank responsible for financial regulations. Check here for the latest official digital finance policies.</div>
+                        <div class="res-card-meta"><span>🏛️ Official</span><span>Bhutan</span></div>
+                        <a href="https://www.rma.org.bt" target="_blank" class="res-card-btn link">Visit RMA →</a>
+                    </div>
+                    <div class="res-card guide">
+                        <div class="res-type guide">📖 Guide</div>
+                        <div class="res-card-title">Crypto Regulation in Small Economies — IMF Report</div>
+                        <div class="res-card-desc">International Monetary Fund analysis of how small economies should approach cryptocurrency regulation — directly relevant to Bhutan's context.</div>
+                        <div class="res-card-meta"><span>📝 IMF Report</span><span>Free</span></div>
+                        <a href="https://www.imf.org/en/Topics/fintech" target="_blank" class="res-card-btn guide">Read Report →</a>
+                    </div>
+                    <div class="res-card video">
+                        <div class="res-type video">🎥 Video</div>
+                        <div class="res-card-title">Crypto Taxes for Small Businesses Explained</div>
+                        <div class="res-card-desc">Understanding how cryptocurrency transactions are treated for accounting and tax purposes — essential knowledge before accepting crypto payments.</div>
+                        <div class="res-card-meta"><span>⏱ 10 min</span><span>Important</span></div>
+                        <a href="https://www.youtube.com/watch?v=7n0HMZdG7oo" target="_blank" class="res-card-btn video">▶ Watch Video →</a>
+                    </div>
+                </div>
+
+                <div class="res-category-label">🌏 Case Studies — Real World Examples</div>
+                <div class="res-grid">
+                    <div class="res-card guide">
+                        <div class="res-type guide">📖 Case Study</div>
+                        <div class="res-card-title">El Salvador: Lessons from a Country Adopting Bitcoin</div>
+                        <div class="res-card-desc">El Salvador became the first country to adopt Bitcoin as legal tender. This case study explores what worked, what didn't, and what Bhutan can learn.</div>
+                        <div class="res-card-meta"><span>📝 Case Study</span><span>Free</span></div>
+                        <a href="https://www.investopedia.com/el-salvador-bitcoin-legal-tender-5200875" target="_blank" class="res-card-btn guide">Read Case Study →</a>
+                    </div>
+                    <div class="res-card video">
+                        <div class="res-type video">🎥 Video</div>
+                        <div class="res-card-title">Bhutan's Crypto Mining — What It Means for Business</div>
+                        <div class="res-card-desc">Bhutan has been quietly mining Bitcoin using hydropower. This video explores what the government's involvement means for future business opportunities.</div>
+                        <div class="res-card-meta"><span>⏱ 8 min</span><span>Bhutan</span></div>
+                        <a href="https://www.youtube.com/watch?v=QBOJTMKaNGQ" target="_blank" class="res-card-btn video">▶ Watch Video →</a>
+                    </div>
+                    <div class="res-card link">
+                        <div class="res-type link">🔗 Resource</div>
+                        <div class="res-card-title">World Bank — Digital Finance for Small Business</div>
+                        <div class="res-card-desc">World Bank resources on how digital finance and fintech can help small and medium businesses in developing economies grow and thrive.</div>
+                        <div class="res-card-meta"><span>🌏 World Bank</span><span>Free</span></div>
+                        <a href="https://www.worldbank.org/en/topic/smefinance" target="_blank" class="res-card-btn link">Explore Resources →</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -582,18 +802,21 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
     </div>
 
     <script>
-    // ══════════════════════════════════════════════════
-    // ✅ NEW: USER & BACKEND FUNCTIONS
-    // ══════════════════════════════════════════════════
+    // ── RESOURCES TAB FUNCTION ──
+    function resTab(tab, btn) {
+        document.querySelectorAll('.res-content').forEach(function(el) { el.classList.remove('active'); });
+        document.querySelectorAll('.res-tab').forEach(function(el) { el.classList.remove('active'); });
+        document.getElementById('res-' + tab).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    // ── USER & BACKEND ──
     var currentUser = { name: '', email: '' };
 
     function startQuiz() {
         var name  = document.getElementById('userName').value.trim();
         var email = document.getElementById('userEmail').value.trim();
-        if (!name || !email) {
-            alert('Please enter your name and email to continue.');
-            return;
-        }
+        if (!name || !email) { alert('Please enter your name and email to continue.'); return; }
         currentUser.name  = name;
         currentUser.email = email;
         document.getElementById('userInfoWrap').style.display = 'none';
@@ -603,65 +826,46 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
 
     async function saveQuizResult(score, answers) {
         try {
-           await fetch('https://drukshift-vakend.onrender.com/api/quiz', {
-                method:  'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body:    JSON.stringify({
-                    name:    currentUser.name,
-                    email:   currentUser.email,
-                    score:   score,
-                    answers: answers
-                })
+            await fetch('https://drukshift-vakend.onrender.com/api/quiz', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: currentUser.name, email: currentUser.email, score: score, answers: answers })
             });
             console.log('Quiz result saved ✅');
-        } catch (err) {
-            console.error('Could not save result', err);
-        }
+        } catch (err) { console.error('Could not save result', err); }
     }
 
     async function fetchHistory(score) {
-    try {
-        const res = await fetch('https://drukshift-vakend.onrender.com/api/quiz/' + encodeURIComponent(currentUser.email));
-        if (!res.ok) return;
-        const data = await res.json();
-        if (data.history && data.history.length > 1) {
-            var prev = data.history[1].score;
-            var diff = score - prev;
-            document.getElementById('qHistoryBox').innerHTML =
-                '<div style="background:#e1f5ee;border-radius:10px;padding:16px;margin-bottom:16px;text-align:center;">' +
-                '<div style="font-size:12px;color:#085041;font-weight:600;margin-bottom:4px;">📊 Your Progress</div>' +
-                '<div style="font-size:22px;font-weight:700;color:#085041;">' +
-                'Last time: ' + prev + '% → Now: ' + score + '% ' +
-                (diff > 0 ? '📈 +' + diff + '%' : diff < 0 ? '📉 ' + diff + '%' : '➡️ Same') +
-                '</div></div>';
-        }
-    } catch (err) {
-        console.error('Could not fetch history', err);
+        try {
+            const res  = await fetch('https://drukshift-vakend.onrender.com/api/quiz/' + encodeURIComponent(currentUser.email));
+            if (!res.ok) return;
+            const data = await res.json();
+            if (data.history && data.history.length > 1) {
+                var prev = data.history[1].score;
+                var diff = score - prev;
+                document.getElementById('qHistoryBox').innerHTML =
+                    '<div style="background:#e1f5ee;border-radius:10px;padding:16px;margin-bottom:16px;text-align:center;">' +
+                    '<div style="font-size:12px;color:#085041;font-weight:600;margin-bottom:4px;">📊 Your Progress</div>' +
+                    '<div style="font-size:22px;font-weight:700;color:#085041;">Last time: ' + prev + '% → Now: ' + score + '% ' +
+                    (diff > 0 ? '📈 +' + diff + '%' : diff < 0 ? '📉 ' + diff + '%' : '➡️ Same') + '</div></div>';
+            }
+        } catch (err) { console.error('Could not fetch history', err); }
     }
-}
 
-    // ══════════════════════════════════════════════════
-    // MODAL FUNCTIONS
-    // ══════════════════════════════════════════════════
+    // ── MODALS ──
     function openViz(overlayId, bodyId, src) {
         var overlay = document.getElementById(overlayId);
         var body = document.getElementById(bodyId);
         if (!body.querySelector('tableau-viz')) {
             var viz = document.createElement('tableau-viz');
-            viz.setAttribute('src', src);
-            viz.setAttribute('width', '100%');
-            viz.setAttribute('height', '900');
-            viz.setAttribute('hide-tabs', 'false');
-            viz.setAttribute('toolbar', 'bottom');
+            viz.setAttribute('src', src); viz.setAttribute('width', '100%');
+            viz.setAttribute('height', '900'); viz.setAttribute('hide-tabs', 'false'); viz.setAttribute('toolbar', 'bottom');
             body.appendChild(viz);
         }
-        overlay.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
+        overlay.style.display = 'flex'; document.body.style.overflow = 'hidden';
         setTimeout(function() { overlay.classList.add('active'); }, 10);
     }
     function closeViz(overlayId) {
-        var overlay = document.getElementById(overlayId);
-        overlay.classList.remove('active');
+        var overlay = document.getElementById(overlayId); overlay.classList.remove('active');
         setTimeout(function() { overlay.style.display = 'none'; document.body.style.overflow = ''; }, 300);
     }
     function openGNHModal()       { openViz('gnhModalOverlay',       'gnhModalBody',       'https://public.tableau.com/views/Tableaucryptoreadiness/Story2'); }
@@ -678,56 +882,47 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
         if (e.key === 'Escape') { closeGNHModal(); closeReadinessModal(); closeScamModal(); closeSolutionsModal(); closeModal(); }
     });
 
-    // ══════════════════════════════════════════════════
-    // READINESS QUIZ — Likert Scale 1-10
-    // ══════════════════════════════════════════════════
+    // ── QUIZ ──
     var qQuestions = [
-        { text: "How familiar are you with what cryptocurrency?",                         area: "Knowledge" },
-        { text: "How confident are you in your ability to use a crypto wallet?",              area: "Technical Skill" },
-        { text: "How much do you trust cryptocurrency as a reliable form of digital money?",                   area: "Trust" },
-        { text: "How aware are you of the risks associated with cryptocurrency?",                    area: "Security Awareness" },
-        { text: "How ready do you feel personally to start transacting with cryptocurrency?",     area: "Personal Readiness" },
-        { text: "How reliable is your internet connection for daily digital activities?",           area: "Infrastructure" },
-        { text: "How comfortable are you with digital financial tools such as mobile banking?",  area: "Digital Comfort" },
-        { text: "Have you heard about the cryptocurrency regulations? ",                   area: "Regulatory Awareness" },
+        { text: "How familiar are you with what cryptocurrency?", area: "Knowledge" },
+        { text: "How confident are you in your ability to use a crypto wallet?", area: "Technical Skill" },
+        { text: "How much do you trust cryptocurrency as a reliable form of digital money?", area: "Trust" },
+        { text: "How aware are you of the risks associated with cryptocurrency?", area: "Security Awareness" },
+        { text: "How ready do you feel personally to start transacting with cryptocurrency?", area: "Personal Readiness" },
+        { text: "How reliable is your internet connection for daily digital activities?", area: "Infrastructure" },
+        { text: "How comfortable are you with digital financial tools such as mobile banking?", area: "Digital Comfort" },
+        { text: "Have you heard about the cryptocurrency regulations?", area: "Regulatory Awareness" },
         { text: "How willing are you to adopt cryptocurrency if it becomes safe and widely accepted in Bhutan?", area: "Adoption Willingness" },
-        { text: "How much do you think cryptocurrency could positively contribute to Bhutan’s development?",          area: "GNH Alignment" }
+        { text: "How much do you think cryptocurrency could positively contribute to Bhutan's development?", area: "GNH Alignment" }
     ];
-
     var qColors = {
         'Knowledge':'#2a6aad','Technical Skill':'#2a9d8f','Trust':'#e9c46a',
         'Security Awareness':'#e63946','Personal Readiness':'#9b5de5',
         'Infrastructure':'#f4a261','Digital Comfort':'#2a9d8f',
         'Regulatory Awareness':'#d4537e','Adoption Willingness':'#2a9d8f','GNH Alignment':'#e9c46a'
     };
-
     var qCurrent = 0;
     var qAnswers = [];
     for (var i = 0; i < qQuestions.length; i++) { qAnswers.push(null); }
 
     function qRender() {
-        var q   = qQuestions[qCurrent];
+        var q = qQuestions[qCurrent];
         var pct = Math.round((qCurrent / qQuestions.length) * 100);
-
         document.getElementById('qProgressText').textContent = 'Question ' + (qCurrent + 1) + ' of ' + qQuestions.length;
         document.getElementById('qProgressPct').textContent  = pct + '%';
         document.getElementById('qProgressFill').style.width = pct + '%';
-        document.getElementById('qDomain').textContent       = q.area;
-        document.getElementById('qText').textContent         = q.text;
-
-        var row = document.getElementById('qLikertRow');
-        row.innerHTML = '';
+        document.getElementById('qDomain').textContent = q.area;
+        document.getElementById('qText').textContent   = q.text;
+        var row = document.getElementById('qLikertRow'); row.innerHTML = '';
         for (var n = 1; n <= 10; n++) {
             (function(val) {
                 var btn = document.createElement('button');
-                btn.className   = 'q-likert-btn' + (qAnswers[qCurrent] === val ? ' selected' : '');
-                btn.textContent = val;
-                btn.type        = 'button';
-                btn.onclick     = function() { qSelect(val); };
+                btn.className = 'q-likert-btn' + (qAnswers[qCurrent] === val ? ' selected' : '');
+                btn.textContent = val; btn.type = 'button';
+                btn.onclick = function() { qSelect(val); };
                 row.appendChild(btn);
             })(n);
         }
-
         document.getElementById('qPrevBtn').style.visibility = qCurrent > 0 ? 'visible' : 'hidden';
         document.getElementById('qNextBtn').disabled = (qAnswers[qCurrent] === null);
         document.getElementById('qNextBtn').textContent = qCurrent === qQuestions.length - 1 ? 'See my results →' : 'Next →';
@@ -743,17 +938,9 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
     }
 
     function qNext() {
-        if (qCurrent < qQuestions.length - 1) {
-            qCurrent++;
-            qRender();
-        } else {
-            qShowResults();
-        }
+        if (qCurrent < qQuestions.length - 1) { qCurrent++; qRender(); } else { qShowResults(); }
     }
-
-    function qPrev() {
-        if (qCurrent > 0) { qCurrent--; qRender(); }
-    }
+    function qPrev() { if (qCurrent > 0) { qCurrent--; qRender(); } }
 
     function qShowResults() {
         var total = 0;
@@ -761,7 +948,6 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
         var score = Math.round((total / 100) * 100);
         var diff  = score - 80;
 
-        // ✅ NEW: Save to backend and fetch history
         saveQuizResult(score, qAnswers);
         setTimeout(function() { fetchHistory(score); }, 2000);
 
@@ -794,13 +980,8 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
         for (var i = 0; i < qQuestions.length; i++) {
             var dpct  = Math.round((qAnswers[i] / 10) * 100);
             var color = qColors[qQuestions[i].area] || '#888';
-            dContainer.innerHTML +=
-                '<div class="q-domain-row">' +
-                '<div class="q-domain-label"><span>' + qQuestions[i].area + '</span><span>' + qAnswers[i] + '/10</span></div>' +
-                '<div class="q-domain-track"><div class="q-domain-fill" style="width:' + dpct + '%;background:' + color + '"></div></div>' +
-                '</div>';
+            dContainer.innerHTML += '<div class="q-domain-row"><div class="q-domain-label"><span>' + qQuestions[i].area + '</span><span>' + qAnswers[i] + '/10</span></div><div class="q-domain-track"><div class="q-domain-fill" style="width:' + dpct + '%;background:' + color + '"></div></div></div>';
         }
-
         document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
         qsRenderAll(score);
     }
@@ -813,89 +994,16 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
         document.getElementById('userInfoWrap').style.display = 'block';
     }
 
-    // ══════════════════════════════════════════════════
-    // SOLUTIONS ENGINE
-    // ══════════════════════════════════════════════════
+    // ── SOLUTIONS ENGINE ──
     var qsCurrentFilter = 'all';
     var qsCurrentScore  = 65;
-
     var qsSolutions = [
-        {
-            id: 'knowledge', category: 'education',
-            title: 'Build your crypto knowledge from scratch',
-            urgentBelow: 60, mediumBelow: 80,
-            body: 'You cannot safely adopt what you do not understand. Start with the basics — what Bitcoin is, how blockchain works, and what makes crypto different from regular money.',
-            actions: [
-                'Watch 3 beginner videos on Bitcoin and blockchain this week',
-                'Read the Royal Monetary Authority of Bhutan\'s official statements on digital assets',
-                'Follow one trusted crypto education source — avoid anyone promising quick profits'
-            ],
-            gnh: ['Education', 'Living Standards'], impact: '+8 to +15 points'
-        },
-        {
-            id: 'wallet', category: 'education',
-            title: 'Practice with a demo crypto wallet before using real money',
-            urgentBelow: 50, mediumBelow: 70,
-            body: 'Technical confidence comes from practice, not reading. Try a demo wallet where no real money is involved. Get comfortable with the interface before committing any actual funds.',
-            actions: [
-                'Download a reputable demo wallet app and set it up with practice funds',
-                'Try sending and receiving small demo amounts between two accounts',
-                'Learn what a private key and seed phrase are — and never share them'
-            ],
-            gnh: ['Education', 'Psychological Wellbeing'], impact: '+5 to +10 points'
-        },
-        {
-            id: 'scam', category: 'security',
-            title: 'Protect yourself from crypto scams — awareness is your best defence',
-            urgentBelow: 70, mediumBelow: 85,
-            body: 'DrukShift data shows the 35-44 age group has the highest trust but lowest security concern — the most vulnerable combination. High awareness does not mean high safety.',
-            actions: [
-                'Learn the top 5 crypto scams — fake apps, pump and dump, phishing links',
-                'Never share your PIN, password or seed phrase with anyone — ever',
-                'If something promises guaranteed returns — walk away immediately',
-                'Verify every app and website URL before entering any financial information'
-            ],
-            gnh: ['Psychological Wellbeing', 'Governance'], impact: '+7 to +12 points'
-        },
-        {
-            id: 'internet', category: 'infrastructure',
-            title: 'Improve your internet reliability before transacting with crypto',
-            urgentBelow: 60, mediumBelow: 75,
-            body: 'Poor internet is the number one barrier from our Bhutan survey. An interrupted connection during a crypto transaction can result in lost funds. Reliable connectivity is a safety requirement.',
-            actions: [
-                'Test your internet speed — you need at least 5 Mbps for safe crypto transactions',
-                'If rural — contact NDCA or Bhutan Telecom about rural broadband programs',
-                'Never transact crypto on public WiFi — use mobile data or home connection only',
-                'Advocate in your community for improved internet — it benefits everyone'
-            ],
-            gnh: ['Living Standards', 'Community Vitality'], impact: '+6 to +10 points'
-        },
-        {
-            id: 'regulation', category: 'governance',
-            title: 'Stay informed about Bhutan\'s cryptocurrency regulations',
-            urgentBelow: 65, mediumBelow: 80,
-            body: 'Many Bhutanese adults are unaware of the legal status of cryptocurrency in Bhutan. Before adopting anything, understand what is permitted, what is regulated and what consumer protections exist.',
-            actions: [
-                'Visit the Royal Monetary Authority website and search for digital asset guidelines',
-                'Follow official government announcements on cryptocurrency policy',
-                'Ask your bank directly — what is their position on crypto-linked transactions?',
-                'Join community meetings where digital finance is discussed'
-            ],
-            gnh: ['Governance', 'Community Vitality'], impact: '+5 to +8 points'
-        },
-        {
-            id: 'community', category: 'community',
-            title: 'Start with your community — let trust build naturally',
-            urgentBelow: 100, mediumBelow: 100,
-            body: 'DrukShift found most Bhutanese said Maybe — not No. These undecided people are waiting to see crypto working safely in real life. You can help by starting small in your own community.',
-            actions: [
-                'Talk to one trusted friend or family member about what you have learned',
-                'Share the DrukShift readiness quiz with your network — more data helps everyone',
-                'Think GNH-first — ask how this technology serves your community, not just you',
-                'Identify one local business willing to explore crypto payments in future'
-            ],
-            gnh: ['Community Vitality', 'Time Use', 'Education'], impact: 'Multiplies over time'
-        }
+        { id:'knowledge', category:'education', title:'Build your crypto knowledge from scratch', urgentBelow:60, mediumBelow:80, body:'You cannot safely adopt what you do not understand. Start with the basics — what Bitcoin is, how blockchain works, and what makes crypto different from regular money.', actions:['Watch 3 beginner videos on Bitcoin and blockchain this week','Read the Royal Monetary Authority of Bhutan\'s official statements on digital assets','Follow one trusted crypto education source — avoid anyone promising quick profits'], gnh:['Education','Living Standards'], impact:'+8 to +15 points' },
+        { id:'wallet', category:'education', title:'Practice with a demo crypto wallet before using real money', urgentBelow:50, mediumBelow:70, body:'Technical confidence comes from practice, not reading. Try a demo wallet where no real money is involved. Get comfortable with the interface before committing any actual funds.', actions:['Download a reputable demo wallet app and set it up with practice funds','Try sending and receiving small demo amounts between two accounts','Learn what a private key and seed phrase are — and never share them'], gnh:['Education','Psychological Wellbeing'], impact:'+5 to +10 points' },
+        { id:'scam', category:'security', title:'Protect yourself from crypto scams — awareness is your best defence', urgentBelow:70, mediumBelow:85, body:'DrukShift data shows the 35-44 age group has the highest trust but lowest security concern — the most vulnerable combination. High awareness does not mean high safety.', actions:['Learn the top 5 crypto scams — fake apps, pump and dump, phishing links','Never share your PIN, password or seed phrase with anyone — ever','If something promises guaranteed returns — walk away immediately','Verify every app and website URL before entering any financial information'], gnh:['Psychological Wellbeing','Governance'], impact:'+7 to +12 points' },
+        { id:'internet', category:'infrastructure', title:'Improve your internet reliability before transacting with crypto', urgentBelow:60, mediumBelow:75, body:'Poor internet is the number one barrier from our Bhutan survey. An interrupted connection during a crypto transaction can result in lost funds. Reliable connectivity is a safety requirement.', actions:['Test your internet speed — you need at least 5 Mbps for safe crypto transactions','If rural — contact NDCA or Bhutan Telecom about rural broadband programs','Never transact crypto on public WiFi — use mobile data or home connection only','Advocate in your community for improved internet — it benefits everyone'], gnh:['Living Standards','Community Vitality'], impact:'+6 to +10 points' },
+        { id:'regulation', category:'governance', title:'Stay informed about Bhutan\'s cryptocurrency regulations', urgentBelow:65, mediumBelow:80, body:'Many Bhutanese adults are unaware of the legal status of cryptocurrency in Bhutan. Before adopting anything, understand what is permitted, what is regulated and what consumer protections exist.', actions:['Visit the Royal Monetary Authority website and search for digital asset guidelines','Follow official government announcements on cryptocurrency policy','Ask your bank directly — what is their position on crypto-linked transactions?','Join community meetings where digital finance is discussed'], gnh:['Governance','Community Vitality'], impact:'+5 to +8 points' },
+        { id:'community', category:'community', title:'Start with your community — let trust build naturally', urgentBelow:100, mediumBelow:100, body:'DrukShift found most Bhutanese said Maybe — not No. These undecided people are waiting to see crypto working safely in real life. You can help by starting small in your own community.', actions:['Talk to one trusted friend or family member about what you have learned','Share the DrukShift readiness quiz with your network — more data helps everyone','Think GNH-first — ask how this technology serves your community, not just you','Identify one local business willing to explore crypto payments in future'], gnh:['Community Vitality','Time Use','Education'], impact:'Multiplies over time' }
     ];
 
     function qsFilter(cat, btn) {
@@ -908,21 +1016,13 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
 
     function qsRenderAll(score) {
         qsCurrentScore = score;
-        var gap    = Math.max(0, 80 - score);
+        var gap = Math.max(0, 80 - score);
         var urgent = 0;
         for (var i = 0; i < qsSolutions.length; i++) { if (score < qsSolutions[i].urgentBelow) urgent++; }
         var timeEst = score < 50 ? '3-6 months' : score < 70 ? '1-3 months' : score < 80 ? '2-4 weeks' : 'Ongoing';
-
-        var subText = score >= 80
-            ? 'You are above the Bhutan average of 80% — here are ways to keep strengthening and help your community.'
-            : 'Your score is below the Bhutan average of 80% — these personalised solutions will help you improve step by step.';
+        var subText = score >= 80 ? 'You are above the Bhutan average of 80% — here are ways to keep strengthening and help your community.' : 'Your score is below the Bhutan average of 80% — these personalised solutions will help you improve step by step.';
         document.getElementById('qsSub').textContent = subText;
-
-        document.getElementById('qsSummary').innerHTML =
-            '<div class="qs-sum-card"><div class="qs-sum-val">' + (gap > 0 ? '+' + gap + '%' : 'Above') + '</div><div class="qs-sum-lbl">Points to average</div></div>' +
-            '<div class="qs-sum-card"><div class="qs-sum-val">' + urgent + '</div><div class="qs-sum-lbl">Priority actions</div></div>' +
-            '<div class="qs-sum-card"><div class="qs-sum-val">' + timeEst + '</div><div class="qs-sum-lbl">Est. time to improve</div></div>';
-
+        document.getElementById('qsSummary').innerHTML = '<div class="qs-sum-card"><div class="qs-sum-val">' + (gap > 0 ? '+' + gap + '%' : 'Above') + '</div><div class="qs-sum-lbl">Points to average</div></div><div class="qs-sum-card"><div class="qs-sum-val">' + urgent + '</div><div class="qs-sum-lbl">Priority actions</div></div><div class="qs-sum-card"><div class="qs-sum-val">' + timeEst + '</div><div class="qs-sum-lbl">Est. time to improve</div></div>';
         qsRenderSolutions(score);
         qsRenderRoadmap(score);
     }
@@ -930,9 +1030,7 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
     function qsRenderSolutions(score) {
         var filtered = [];
         for (var i = 0; i < qsSolutions.length; i++) {
-            if (qsCurrentFilter === 'all' || qsSolutions[i].category === qsCurrentFilter) {
-                filtered.push(qsSolutions[i]);
-            }
+            if (qsCurrentFilter === 'all' || qsSolutions[i].category === qsCurrentFilter) filtered.push(qsSolutions[i]);
         }
         filtered.sort(function(a, b) {
             var aU = score < a.urgentBelow, bU = score < b.urgentBelow;
@@ -941,30 +1039,19 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
             if (aM && !bM) return -1; if (!aM && bM) return 1;
             return 0;
         });
-
         var html = '<div class="qs-sol-list">';
-        if (filtered.length === 0) {
-            html += '<div style="font-size:13px;color:var(--muted);padding:8px 0;">No solutions in this category.</div>';
-        }
+        if (filtered.length === 0) html += '<div style="font-size:13px;color:var(--muted);padding:8px 0;">No solutions in this category.</div>';
         for (var i = 0; i < filtered.length; i++) {
             var s = filtered[i];
             var isUrgent = score < s.urgentBelow;
             var isMedium = !isUrgent && score < s.mediumBelow;
-            var cls   = isUrgent ? 'qs-sol urgent' : isMedium ? 'qs-sol medium' : 'qs-sol';
-            var bCls  = isUrgent ? 'qs-badge urgent' : isMedium ? 'qs-badge medium' : 'qs-badge good';
-            var bText = isUrgent ? 'Priority' : isMedium ? 'Recommended' : 'Strengthen';
-
-            html += '<div class="' + cls + '">';
-            html += '<div class="qs-sol-header"><div class="qs-sol-title">' + s.title + '</div><div class="' + bCls + '">' + bText + '</div></div>';
-            html += '<div class="qs-sol-body">' + s.body + '</div>';
-            html += '<div class="qs-actions">';
-            for (var j = 0; j < s.actions.length; j++) {
-                html += '<div class="qs-action"><div class="qs-adot"></div><span>' + s.actions[j] + '</span></div>';
-            }
+            var cls  = isUrgent ? 'qs-sol urgent' : isMedium ? 'qs-sol medium' : 'qs-sol';
+            var bCls = isUrgent ? 'qs-badge urgent' : isMedium ? 'qs-badge medium' : 'qs-badge good';
+            var bTxt = isUrgent ? 'Priority' : isMedium ? 'Recommended' : 'Strengthen';
+            html += '<div class="' + cls + '"><div class="qs-sol-header"><div class="qs-sol-title">' + s.title + '</div><div class="' + bCls + '">' + bTxt + '</div></div><div class="qs-sol-body">' + s.body + '</div><div class="qs-actions">';
+            for (var j = 0; j < s.actions.length; j++) html += '<div class="qs-action"><div class="qs-adot"></div><span>' + s.actions[j] + '</span></div>';
             html += '</div><div class="qs-tags">';
-            for (var k = 0; k < s.gnh.length; k++) {
-                html += '<span class="qs-tag">' + s.gnh[k] + '</span>';
-            }
+            for (var k = 0; k < s.gnh.length; k++) html += '<span class="qs-tag">' + s.gnh[k] + '</span>';
             html += '<span class="qs-tag impact">' + s.impact + '</span></div></div>';
         }
         html += '</div>';
@@ -972,30 +1059,21 @@ footer{background:var(--navy);padding:60px 48px 40px;text-align:center;}
     }
 
     function qsRenderRoadmap(score) {
-        var y1 = Math.min(100, score + 8);
-        var y2 = Math.min(100, y1 + 7);
-        var y3 = Math.min(100, y2 + 6);
-        var y4 = Math.min(100, y3 + 5);
+        var y1 = Math.min(100, score + 8), y2 = Math.min(100, y1 + 7), y3 = Math.min(100, y2 + 6), y4 = Math.min(100, y3 + 5);
         var steps = [
-            { label: 'Now',    sc: score, focus: 'Assess your gaps',     detail: 'Take the quiz, identify weak areas, make a personal improvement plan' },
-            { label: 'Year 1', sc: y1,    focus: 'Learn and protect',    detail: 'Complete crypto basics, learn scam awareness, improve internet access' },
-            { label: 'Year 2', sc: y2,    focus: 'Practice and build',   detail: 'Use a demo wallet regularly, follow regulations, join community discussions' },
-            { label: 'Year 3', sc: y3,    focus: 'Adopt carefully',      detail: 'Start small with regulated crypto products, help others in your community' },
-            { label: 'Year 4', sc: y4,    focus: 'Lead and grow',        detail: 'Share knowledge, mentor others, contribute to GNH-aligned adoption in Bhutan' }
+            { label:'Now',    sc:score, focus:'Assess your gaps',   detail:'Take the quiz, identify weak areas, make a personal improvement plan' },
+            { label:'Year 1', sc:y1,    focus:'Learn and protect',  detail:'Complete crypto basics, learn scam awareness, improve internet access' },
+            { label:'Year 2', sc:y2,    focus:'Practice and build', detail:'Use a demo wallet regularly, follow regulations, join community discussions' },
+            { label:'Year 3', sc:y3,    focus:'Adopt carefully',    detail:'Start small with regulated crypto products, help others in your community' },
+            { label:'Year 4', sc:y4,    focus:'Lead and grow',      detail:'Share knowledge, mentor others, contribute to GNH-aligned adoption in Bhutan' }
         ];
         var html = '';
         for (var i = 0; i < steps.length; i++) {
             var st = steps[i];
-            html += '<div class="qs-road-item">';
-            html += '<div class="qs-year"><div class="qs-year-lbl">' + st.label + '</div><div class="qs-year-score">' + Math.round(st.sc) + '%</div></div>';
-            html += '<div class="qs-road-content" style="flex:1;">';
-            html += '<p>' + st.focus + '</p><span>' + st.detail + '</span>';
-            html += '<div class="qs-road-bar-wrap"><div class="qs-road-bar" style="width:' + Math.round(st.sc) + '%"></div></div>';
-            html += '</div></div>';
+            html += '<div class="qs-road-item"><div class="qs-year"><div class="qs-year-lbl">' + st.label + '</div><div class="qs-year-score">' + Math.round(st.sc) + '%</div></div><div class="qs-road-content" style="flex:1;"><p>' + st.focus + '</p><span>' + st.detail + '</span><div class="qs-road-bar-wrap"><div class="qs-road-bar" style="width:' + Math.round(st.sc) + '%"></div></div></div></div>';
         }
         document.getElementById('qsRoadmap').innerHTML = html;
     }
-
     </script>
 </body>
 </html>
